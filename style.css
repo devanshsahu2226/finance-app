@@ -194,10 +194,100 @@ body {
     transform: scale(0.95);
 }
 
+/* FIXED MARKET INDICES - Both Pages */
+.market-indices-fixed {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    display: flex;
+    gap: 8px;
+    padding: 0 12px;
+    z-index: 999;
+    background: rgba(10, 14, 23, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.market-indices-fixed .card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.market-indices-fixed .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.market-indices-fixed .nifty {
+    background: var(--green-gradient);
+}
+
+.market-indices-fixed .sensex {
+    background: var(--blue-gradient);
+}
+
+.market-indices-fixed .card-header {
+    font-size: 10px;
+    opacity: 0.95;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.market-indices-fixed .card-header i {
+    font-size: 9px;
+}
+
+.market-indices-fixed .value {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    position: relative;
+    z-index: 2;
+}
+
+.market-indices-fixed .change {
+    font-size: 9px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 5px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.market-indices-fixed .change i {
+    font-size: 7px;
+}
+
+/* Old Market Indices - Hide in content */
+.market-indices {
+    display: none;
+}
+
 /* Content Wrapper - Scrollable */
 .content-wrapper {
     position: absolute;
-    top: 70px;
+    top: 145px;
     bottom: 70px;
     left: 0;
     right: 0;
@@ -210,79 +300,8 @@ body {
     display: none;
 }
 
-/* Market Indices */
-.market-indices {
-    display: flex;
-    gap: 10px;
-    padding: 0 16px;
-    margin-bottom: 16px;
-}
-
-.card {
-    border-radius: 16px;
-    padding: 15px;
-    position: relative;
-    overflow: hidden;
-}
-
-.card::after {
-    content: '';
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.nifty { 
-    flex: 1; 
-    background: var(--green-gradient); 
-}
-
-.sensex { 
-    flex: 1; 
-    background: var(--blue-gradient); 
-}
-
-.card-header {
-    font-size: 12px;
-    opacity: 0.9;
-    margin-bottom: 8px;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.card-header i {
-    font-size: 11px;
-}
-
-.value {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    position: relative;
-    z-index: 2;
-}
-
-.change {
-    font-size: 11px;
-    font-weight: 500;
-    background: rgba(255,255,255,0.25);
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 12px;
-    position: relative;
-    z-index: 2;
-}
-
-.change i {
-    font-size: 9px;
+.content-spacer {
+    height: 10px;
 }
 
 /* Total Value Section */
@@ -429,20 +448,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.summary-card:active {
+    transform: scale(0.98);
 }
 
 .summary-card-link {
     text-decoration: none;
     color: inherit;
     display: block;
-}
-
-.summary-card-link .card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.summary-card-link:active .card {
-    transform: scale(0.98);
 }
 
 .mutual-funds .left { 
