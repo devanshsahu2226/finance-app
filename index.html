@@ -14,14 +14,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Finance App">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="apple-touch-startup-image" href="icons/icon-512.png">
     <link rel="manifest" href="manifest.json">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <title>Finance Dashboard</title>
-    <!-- RENAMED CSS FILE -->
     <link rel="stylesheet" href="style.v3.css">
 </head>
 <body>
@@ -186,19 +184,31 @@
             }
         }
 
-        // Force Service Worker Update
+        // COMPLETELY REMOVE OLD SERVICE WORKER & REGISTER NEW
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
+                // First unregister all old service workers
                 navigator.serviceWorker.getRegistrations().then(registrations => {
                     for(let registration of registrations) {
-                        registration.unregister();
+                        registration.unregister().then(() => {
+                            console.log('Old Service Worker unregistered');
+                        });
                     }
                 }).then(() => {
+                    // Clear all caches
+                    caches.keys().then(cacheNames => {
+                        return Promise.all(
+                            cacheNames.map(cacheName => caches.delete(cacheName))
+                        );
+                    });
+                }).then(() => {
+                    // Register new service worker
                     return navigator.serviceWorker.register('./sw.v3.js');
                 }).then(reg => {
-                    console.log('Service Worker Registered v3');
-                    reg.update();
-                }).catch(err => console.log('Service Worker Error:', err));
+                    console.log('New Service Worker Registered v3');
+                }).catch(err => {
+                    console.log('Service Worker Error:', err);
+                });
             });
         }
 
