@@ -13,7 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Finance Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Cache Buster Added -->
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div class="mobile-frame">
@@ -33,7 +34,6 @@
             </div>
         </header>
 
-        <!-- Fixed Market Indices -->
         <div class="market-indices-fixed">
             <div class="card nifty">
                 <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
@@ -178,10 +178,15 @@
             }
         }
 
+        // Register Service Worker with Cache Busting
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker Registered'))
+                navigator.serviceWorker.register('./sw.js?v=2')
+                    .then(reg => {
+                        console.log('Service Worker Registered');
+                        // Force update on every load
+                        reg.update();
+                    })
                     .catch(err => console.log('Service Worker Error:', err));
             });
         }
