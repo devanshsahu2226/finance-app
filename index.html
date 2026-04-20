@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- No Cache Meta Tags -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Finance App">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="manifest" href="manifest.json">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <title>Finance Dashboard</title>
     <link rel="stylesheet" href="style.v3.css">
 </head>
@@ -55,7 +50,6 @@
 
         <div class="content-wrapper">
             <div class="content-spacer"></div>
-
             <section class="total-value-section">
                 <h2 class="section-title">Total Value</h2>
                 <div class="donut-container">
@@ -69,7 +63,6 @@
                 </div>
                 <div class="legend" id="chartLegend"></div>
             </section>
-
             <section class="stats-grid">
                 <div class="card stat-card invested">
                     <p class="label">Invested</p>
@@ -85,7 +78,6 @@
                     <p class="sub">+4.55%</p>
                 </div>
             </section>
-
             <section class="portfolio-summary">
                 <div class="card summary-card mutual-funds" onclick="window.location.href='mutual-funds.html'">
                     <div class="left">
@@ -150,11 +142,9 @@
             let currentPercent = 0;
             fundData.forEach((fund, index) => {
                 const percentage = (fund.value / totalValue) * 100;
-                const startPercent = currentPercent;
-                const endPercent = currentPercent + percentage;
-                gradient += `${fund.color} ${startPercent}% ${endPercent}%`;
+                gradient += `${fund.color} ${currentPercent}% ${currentPercent + percentage}%`;
                 if (index < fundData.length - 1) gradient += ', ';
-                currentPercent = endPercent;
+                currentPercent += percentage;
             });
             gradient += ')';
             return gradient;
@@ -165,12 +155,7 @@
             let legendHTML = '';
             fundData.forEach(fund => {
                 const percentage = ((fund.value / totalValue) * 100).toFixed(1);
-                legendHTML += `
-                    <div class="legend-item">
-                        <span class="dot" style="background: ${fund.color}"></span>
-                        <span>${fund.name} (${percentage}%)</span>
-                    </div>
-                `;
+                legendHTML += `<div class="legend-item"><span class="dot" style="background: ${fund.color}"></span><span>${fund.name} (${percentage}%)</span></div>`;
             });
             legendContainer.innerHTML = legendHTML;
         }
@@ -184,33 +169,19 @@
             }
         }
 
-        // COMPLETELY REMOVE OLD SERVICE WORKER & REGISTER NEW
+        // DISABLE SERVICE WORKER FOR NOW (To fix black screen)
+        // Uncomment below when cache is fully cleared
+        /*
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // First unregister all old service workers
                 navigator.serviceWorker.getRegistrations().then(registrations => {
                     for(let registration of registrations) {
-                        registration.unregister().then(() => {
-                            console.log('Old Service Worker unregistered');
-                        });
+                        registration.unregister();
                     }
-                }).then(() => {
-                    // Clear all caches
-                    caches.keys().then(cacheNames => {
-                        return Promise.all(
-                            cacheNames.map(cacheName => caches.delete(cacheName))
-                        );
-                    });
-                }).then(() => {
-                    // Register new service worker
-                    return navigator.serviceWorker.register('./sw.v3.js');
-                }).then(reg => {
-                    console.log('New Service Worker Registered v3');
-                }).catch(err => {
-                    console.log('Service Worker Error:', err);
                 });
             });
         }
+        */
 
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (event) => {

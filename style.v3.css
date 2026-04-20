@@ -35,7 +35,6 @@ body {
     overscroll-behavior: none;
 }
 
-/* Mobile Frame */
 .mobile-frame {
     width: 100%;
     max-width: 390px;
@@ -47,7 +46,7 @@ body {
     overflow: hidden;
 }
 
-/* FIXED HEADER - z-index: 1001 (Highest) */
+/* HEADER - z-index: 1001 */
 .top-header {
     position: fixed;
     top: 0;
@@ -74,7 +73,6 @@ body {
     max-width: 100%;
 }
 
-/* Home Page Header - Profile */
 .profile {
     display: flex;
     align-items: center;
@@ -113,7 +111,6 @@ body {
     font-weight: 400;
 }
 
-/* Logout Button */
 .logout-btn {
     background: var(--logout-bg);
     border: 1px solid var(--logout-border);
@@ -140,7 +137,6 @@ body {
     font-size: 15px;
 }
 
-/* Mutual Funds Page Header */
 .header-left {
     display: flex;
     align-items: center;
@@ -194,10 +190,10 @@ body {
     transform: scale(0.95);
 }
 
-/* FIXED MARKET INDICES - z-index: 1000 (Below Header) */
+/* MARKET INDICES - z-index: 1000 */
 .market-indices-fixed {
     position: fixed;
-    top: 75px; /* Header height se neeche */
+    top: 75px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -205,7 +201,7 @@ body {
     display: flex;
     gap: 8px;
     padding: 0 12px;
-    z-index: 1000; /* Header se kam */
+    z-index: 1000;
     background: rgba(10, 14, 23, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -279,15 +275,14 @@ body {
     font-size: 7px;
 }
 
-/* Old Market Indices - Hide in content */
 .market-indices {
     display: none;
 }
 
-/* Content Wrapper - Scrollable */
+/* CONTENT WRAPPER */
 .content-wrapper {
     position: absolute;
-    top: 155px; /* Header (75px) + Market Cards (80px) */
+    top: 155px;
     bottom: 70px;
     left: 0;
     right: 0;
@@ -304,7 +299,7 @@ body {
     height: 10px;
 }
 
-/* Total Value Section */
+/* TOTAL VALUE SECTION */
 .total-value-section {
     background: rgba(255,255,255,0.03);
     margin: 20px;
@@ -381,7 +376,7 @@ body {
     border-radius: 50%; 
 }
 
-/* Stats Grid */
+/* STATS GRID */
 .stats-grid {
     display: flex;
     gap: 10px;
@@ -432,7 +427,7 @@ body {
     margin-top: 4px; 
 }
 
-/* Portfolio Summary */
+/* PORTFOLIO SUMMARY */
 .portfolio-summary {
     padding: 0 20px;
     display: grid;
@@ -510,7 +505,7 @@ body {
     font-weight: 600;
 }
 
-/* Funds Section (Mutual Funds Page) */
+/* FUNDS SECTION */
 .funds-section {
     padding: 0 16px;
     margin-bottom: 20px;
@@ -547,7 +542,7 @@ body {
     font-size: 11px;
 }
 
-/* Fund Card */
+/* FUND CARD */
 .fund-card {
     background: var(--fund-card-bg);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -708,7 +703,7 @@ body {
     color: var(--loss-red);
 }
 
-/* Bottom Navigation - Fixed */
+/* BOTTOM NAVIGATION */
 .bottom-nav {
     position: fixed;
     bottom: 0;
