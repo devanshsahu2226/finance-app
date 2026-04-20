@@ -12,95 +12,59 @@
 </head>
 <body>
     <div class="mobile-frame">
-        
-        <!-- HEADER -->
         <header class="top-header">
             <div class="header-content">
                 <div class="header-left">
                     <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
                     <h1 class="page-title">Mutual Funds</h1>
                 </div>
-                <button class="header-action-btn"><i class="fa-solid fa-up-right-from-square"></i></button>
+                <div class="header-actions">
+                    <button class="refresh-nav-btn" onclick="refreshAllNAV()">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                    <button class="add-fund-btn" onclick="openAddFundModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Fund</span>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <!-- THREE CARDS (Invested, Current, P&L) -->
         <div class="mf-summary-cards">
             <div class="card mf-card invested">
                 <div class="mf-card-label"><i class="fa-solid fa-wallet"></i> Invested</div>
-                <div class="mf-card-value">₹1,05,232.03</div>
+                <div class="mf-card-value" id="totalInvested">₹0.00</div>
             </div>
             <div class="card mf-card current">
                 <div class="mf-card-label"><i class="fa-solid fa-chart-line"></i> Current Value</div>
-                <div class="mf-card-value">₹1,12,111.51</div>
+                <div class="mf-card-value" id="totalCurrentValue">₹0.00</div>
             </div>
             <div class="card mf-card pnl">
                 <div class="mf-card-label"><i class="fa-solid fa-arrow-trend-up"></i> P&L</div>
-                <div class="mf-card-value">+₹6,879.48</div>
-                <div class="mf-card-percent up">+4.55%</div>
+                <div class="mf-card-value" id="totalPnL">₹0.00</div>
+                <div class="mf-card-percent" id="totalPnLPercent">0.00%</div>
             </div>
         </div>
 
-        <!-- SCROLLABLE CONTENT -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
             
-            <!-- Mutual Funds Section -->
             <section class="funds-section">
                 <div class="section-header">
-                    <h2 class="section-title">Mutual Funds <span class="fund-count">(2)</span></h2>
+                    <h2 class="section-title">My Funds <span class="fund-count" id="fundCount">(0)</span></h2>
                     <div class="timestamp"><i class="fa-regular fa-clock"></i> <span id="currentTime">06:01 PM</span></div>
                 </div>
 
-                <!-- Fund Card 1 - Profit -->
-                <div class="fund-card profit">
-                    <div class="fund-header">
-                        <div class="fund-code">Code: 122639</div>
-                        <div class="fund-actions">
-                            <button class="action-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </div>
-                    <h3 class="fund-name">Parag Parikh Flexi Cap Fund – Direct Plan – Growth</h3>
-                    <div class="fund-details">
-                        <div class="detail-item"><p class="label">Invested</p><p class="value">₹58,234.09</p></div>
-                        <div class="detail-item"><p class="label">Units</p><p class="value">736.113</p></div>
-                        <div class="detail-item"><p class="label">Current NAV</p><p class="value">₹91.99</p></div>
-                        <div class="detail-item"><p class="label">Current Value</p><p class="value">₹67,711.50</p></div>
-                    </div>
-                    <div class="fund-footer">
-                        <div class="pnl"><i class="fa-solid fa-arrow-trend-up"></i> P&L: +₹9,477.41</div>
-                        <div class="xirr">XIRR +751.90% p.a.</div>
-                        <div class="percentage positive">+16.27%</div>
-                    </div>
-                </div>
-
-                <!-- Fund Card 2 - Loss -->
-                <div class="fund-card loss">
-                    <div class="fund-header">
-                        <div class="fund-code">Code: 120716</div>
-                        <div class="fund-actions">
-                            <button class="action-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </div>
-                    <h3 class="fund-name">UTI Nifty 50 Index Fund – Growth Option – Direct</h3>
-                    <div class="fund-details">
-                        <div class="detail-item"><p class="label">Invested</p><p class="value">₹46,997.94</p></div>
-                        <div class="detail-item"><p class="label">Units</p><p class="value">269.866</p></div>
-                        <div class="detail-item"><p class="label">Current NAV</p><p class="value">₹170.23</p></div>
-                        <div class="detail-item"><p class="label">Current Value</p><p class="value">₹45,939.88</p></div>
-                    </div>
-                    <div class="fund-footer">
-                        <div class="pnl"><i class="fa-solid fa-arrow-trend-down"></i> P&L: -₹1,058.06</div>
-                        <div class="xirr">XIRR -27.64% p.a.</div>
-                        <div class="percentage negative">-2.25%</div>
+                <div id="fundsContainer">
+                    <div id="emptyState" style="text-align: center; padding: 60px 20px; color: #a0a5b1;">
+                        <i class="fa-solid fa-folder-open" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <p>No funds added yet</p>
+                        <p style="font-size: 13px; margin-top: 8px; opacity: 0.7;">Click "Add Fund" to get started</p>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- BOTTOM NAVIGATION -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
@@ -108,21 +72,429 @@
             <div class="nav-item"><i class="fa-solid fa-d"></i><span>FD</span></div>
             <div class="nav-item"><i class="fa-solid fa-star"></i><span>Watchlist</span></div>
         </nav>
+
+        <!-- ADD FUND MODAL -->
+        <div id="addFundModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Add Fund to Portfolio</h2>
+                        <p>Search by name or AMFI code</p>
+                    </div>
+                    <button class="modal-close" onclick="closeAddFundModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div id="searchStep">
+                    <div class="search-container">
+                        <input type="text" id="fundSearchInput" placeholder="Type fund name or AMFI code..." class="search-input">
+                        <button class="search-btn" onclick="searchFund()">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                    <div id="searchResults" class="search-results"></div>
+                    <p class="hint-text">Select a fund above to continue</p>
+                </div>
+
+                <div id="fundDetailsStep" style="display: none;">
+                    <div class="selected-fund" id="selectedFundInfo">
+                        <div class="fund-check"><i class="fa-solid fa-check-circle"></i></div>
+                        <div class="fund-info">
+                            <h3 id="selectedFundName">Fund Name</h3>
+                            <p class="fund-nav">Current NAV: <span id="selectedFundNAV">₹0.00</span></p>
+                        </div>
+                        <button class="remove-fund" onclick="resetSearch()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+
+                    <div class="input-group">
+                        <label>₹ Invested Amount</label>
+                        <input type="number" id="investedAmount" placeholder="e.g. 50000" class="amount-input">
+                    </div>
+
+                    <div class="input-group">
+                        <label># Units</label>
+                        <input type="number" id="unitsInput" placeholder="e.g. 123.456" class="amount-input" step="0.001">
+                    </div>
+
+                    <button class="add-to-portfolio-btn" onclick="addToPortfolio()">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add to Portfolio</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDIT FUND MODAL -->
+        <div id="editFundModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Edit Fund</h2>
+                        <p>Update your investment details</p>
+                    </div>
+                    <button class="modal-close" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="selected-fund">
+                    <div class="fund-info" style="flex: 1;">
+                        <h3 id="editFundName">Fund Name</h3>
+                        <p class="fund-nav">Code: <span id="editFundCode">000000</span></p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>₹ Invested Amount</label>
+                    <input type="number" id="editInvestedAmount" class="amount-input">
+                </div>
+
+                <div class="input-group">
+                    <label># Units</label>
+                    <input type="number" id="editUnitsInput" class="amount-input" step="0.001">
+                </div>
+
+                <button class="add-to-portfolio-btn" onclick="saveEdit()">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Update Current Time
+        const fundDatabase = {
+            '122639': { name: 'Parag Parikh Flexi Cap Fund – Direct Plan – Growth', nav: 91.99 },
+            '120716': { name: 'UTI Nifty 50 Index Fund – Growth Option – Direct', nav: 170.23 },
+            '119551': { name: 'Kotak FMP series 122 (370 Days) - Growth', nav: 12.8935 },
+            '118825': { name: 'SBI Small Cap Fund – Direct Plan – Growth', nav: 145.67 },
+            '125497': { name: 'Axis Bluechip Fund – Direct Plan – Growth', nav: 58.34 }
+        };
+
+        let selectedFund = null;
+        let editingFundCode = null;
+        let fundsList = [];
+
+        window.onload = function() {
+            loadFunds();
+            updateTime();
+            setInterval(updateTime, 1000);
+        };
+
         function updateTime() {
             const now = new Date();
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12;
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('currentTime').textContent = `${formattedHours}:${formattedMinutes} ${ampm}`;
+            const h = hours % 12 || 12;
+            const m = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('currentTime').textContent = `${h}:${m} ${ampm}`;
         }
-        updateTime();
-        setInterval(updateTime, 1000);
+
+        function loadFunds() {
+            const stored = localStorage.getItem('mutualFunds');
+            if (stored) {
+                fundsList = JSON.parse(stored);
+                renderFunds();
+                updateSummary();
+            }
+        }
+
+        function saveFunds() {
+            localStorage.setItem('mutualFunds', JSON.stringify(fundsList));
+        }
+
+        function openAddFundModal() {
+            document.getElementById('addFundModal').style.display = 'flex';
+            document.getElementById('fundSearchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+            document.getElementById('searchStep').style.display = 'block';
+            document.getElementById('fundDetailsStep').style.display = 'none';
+            selectedFund = null;
+        }
+
+        function closeAddFundModal() {
+            document.getElementById('addFundModal').style.display = 'none';
+        }
+
+        function openEditModal(fundCode) {
+            const fund = fundsList.find(f => f.code === fundCode);
+            if (!fund) return;
+
+            editingFundCode = fundCode;
+            document.getElementById('editFundName').textContent = fund.name;
+            document.getElementById('editFundCode').textContent = fund.code;
+            document.getElementById('editInvestedAmount').value = fund.invested;
+            document.getElementById('editUnitsInput').value = fund.units;
+            document.getElementById('editFundModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editFundModal').style.display = 'none';
+            editingFundCode = null;
+        }
+
+        function searchFund() {
+            const term = document.getElementById('fundSearchInput').value.trim();
+            const results = document.getElementById('searchResults');
+            results.innerHTML = '';
+
+            if (!term) {
+                alert('Please enter AMFI code or fund name');
+                return;
+            }
+
+            let found = fundDatabase[term];
+            
+            if (!found) {
+                for (let code in fundDatabase) {
+                    if (fundDatabase[code].name.toLowerCase().includes(term.toLowerCase())) {
+                        found = fundDatabase[code];
+                        found.amfi = code;
+                        break;
+                    }
+                }
+            }
+
+            if (found) {
+                results.innerHTML = `
+                    <div class="search-result-item" onclick="selectFund('${found.amfi || term}')">
+                        <div class="result-check"><i class="fa-solid fa-check-circle"></i></div>
+                        <div class="result-info">
+                            <h4>${found.name}</h4>
+                            <p>Current NAV: ₹${found.nav}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                results.innerHTML = '<p class="no-results">No fund found. Try: 119551, 118825, 125497</p>';
+            }
+        }
+
+        function selectFund(amfiCode) {
+            selectedFund = fundDatabase[amfiCode];
+            selectedFund.amfi = amfiCode;
+            document.getElementById('searchStep').style.display = 'none';
+            document.getElementById('fundDetailsStep').style.display = 'block';
+            document.getElementById('selectedFundName').textContent = selectedFund.name;
+            document.getElementById('selectedFundNAV').textContent = '₹' + selectedFund.nav;
+            document.getElementById('investedAmount').value = '';
+            document.getElementById('unitsInput').value = '';
+        }
+
+        function resetSearch() {
+            document.getElementById('searchStep').style.display = 'block';
+            document.getElementById('fundDetailsStep').style.display = 'none';
+            selectedFund = null;
+        }
+
+        function addToPortfolio() {
+            const invested = parseFloat(document.getElementById('investedAmount').value);
+            const units = parseFloat(document.getElementById('unitsInput').value);
+
+            if (!invested || !units || invested <= 0 || units <= 0) {
+                alert('Please enter valid amounts');
+                return;
+            }
+
+            const currentValue = parseFloat((units * selectedFund.nav).toFixed(2));
+            const pnl = parseFloat((currentValue - invested).toFixed(2));
+            const pnlPercent = parseFloat(((pnl / invested) * 100).toFixed(2));
+
+            fundsList.push({
+                code: selectedFund.amfi,
+                name: selectedFund.name,
+                invested: invested,
+                units: units,
+                nav: selectedFund.nav,
+                currentValue: currentValue,
+                pnl: pnl,
+                pnlPercent: pnlPercent,
+                lastUpdated: new Date().toISOString()
+            });
+
+            saveFunds();
+            renderFunds();
+            updateSummary();
+            closeAddFundModal();
+            setTimeout(() => alert('Fund added successfully!'), 100);
+        }
+
+        function saveEdit() {
+            const invested = parseFloat(document.getElementById('editInvestedAmount').value);
+            const units = parseFloat(document.getElementById('editUnitsInput').value);
+
+            if (!invested || !units || invested <= 0 || units <= 0) {
+                alert('Please enter valid amounts');
+                return;
+            }
+
+            const index = fundsList.findIndex(f => f.code === editingFundCode);
+            if (index === -1) {
+                alert('Fund not found');
+                return;
+            }
+
+            const fund = fundsList[index];
+            fund.invested = invested;
+            fund.units = units;
+            fund.currentValue = parseFloat((units * fund.nav).toFixed(2));
+            fund.pnl = parseFloat((fund.currentValue - invested).toFixed(2));
+            fund.pnlPercent = parseFloat(((fund.pnl / invested) * 100).toFixed(2));
+            fund.lastUpdated = new Date().toISOString();
+
+            // Force save and re-render
+            saveFunds();
+            renderFunds();
+            updateSummary();
+            closeEditModal();
+            
+            // Force reload to show changes
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+        }
+
+        function deleteFund(fundCode) {
+            if (confirm('Are you sure you want to delete this fund?')) {
+                fundsList = fundsList.filter(f => f.code !== fundCode);
+                saveFunds();
+                renderFunds();
+                updateSummary();
+            }
+        }
+
+        function refreshAllNAV() {
+            const btn = document.querySelector('.refresh-nav-btn i');
+            btn.classList.add('fa-spin');
+
+            setTimeout(() => {
+                fundsList.forEach(fund => {
+                    const change = (Math.random() - 0.5) * 2;
+                    fund.nav = parseFloat((fund.nav + change).toFixed(2));
+                    fund.currentValue = parseFloat((fund.units * fund.nav).toFixed(2));
+                    fund.pnl = parseFloat((fund.currentValue - fund.invested).toFixed(2));
+                    fund.pnlPercent = parseFloat(((fund.pnl / fund.invested) * 100).toFixed(2));
+                    fund.lastUpdated = new Date().toISOString();
+                });
+
+                saveFunds();
+                renderFunds();
+                updateSummary();
+                btn.classList.remove('fa-spin');
+                alert('NAV refreshed!');
+            }, 1500);
+        }
+
+        function renderFunds() {
+            const container = document.getElementById('fundsContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (fundsList.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyState);
+                emptyState.style.display = 'block';
+                document.getElementById('fundCount').textContent = '(0)';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+
+            fundsList.forEach(fund => {
+                container.appendChild(createFundCard(fund));
+            });
+
+            document.getElementById('fundCount').textContent = `(${fundsList.length})`;
+        }
+
+        function createFundCard(fund) {
+            const div = document.createElement('div');
+            div.className = `fund-card ${fund.pnl >= 0 ? 'profit' : 'loss'}`;
+            
+            const pnlIcon = fund.pnl >= 0 ? 'arrow-trend-up' : 'arrow-trend-down';
+            const pnlClass = fund.pnl >= 0 ? 'positive' : 'negative';
+            
+            div.innerHTML = `
+                <div class="fund-header">
+                    <div class="fund-code">Code: ${fund.code}</div>
+                    <div class="fund-actions">
+                        <button class="action-btn" onclick="openEditModal('${fund.code}')">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="action-btn delete" onclick="deleteFund('${fund.code}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="fund-name">${fund.name}</h3>
+                <div class="fund-details">
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <p class="label">Invested</p>
+                            <p class="value">₹${fund.invested.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="label">Units</p>
+                            <p class="value">${fund.units}</p>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <p class="label">Current NAV</p>
+                            <p class="value">₹${fund.nav}</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="label">Current Value</p>
+                            <p class="value">₹${fund.currentValue.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fund-footer">
+                    <div class="pnl">
+                        <i class="fa-solid fa-${pnlIcon}"></i> 
+                        P&L: <span>${fund.pnl >= 0 ? '+' : ''}₹${Math.abs(fund.pnl).toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
+                    </div>
+                    <div class="percentage ${pnlClass}">
+                        ${fund.pnlPercent >= 0 ? '+' : ''}${fund.pnlPercent}%
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        function updateSummary() {
+            let totalInvested = 0;
+            let totalCurrentValue = 0;
+
+            fundsList.forEach(fund => {
+                totalInvested += fund.invested;
+                totalCurrentValue += fund.currentValue;
+            });
+
+            const totalPnL = totalCurrentValue - totalInvested;
+            const totalPnLPercent = totalInvested > 0 ? ((totalPnL / totalInvested) * 100).toFixed(2) : 0;
+
+            document.getElementById('totalInvested').textContent = '₹' + totalInvested.toLocaleString('en-IN', {minimumFractionDigits: 2});
+            document.getElementById('totalCurrentValue').textContent = '₹' + totalCurrentValue.toLocaleString('en-IN', {minimumFractionDigits: 2});
+            
+            const pnlEl = document.getElementById('totalPnL');
+            const pnlPercentEl = document.getElementById('totalPnLPercent');
+            
+            pnlEl.textContent = (totalPnL >= 0 ? '+' : '') + '₹' + Math.abs(totalPnL).toLocaleString('en-IN', {minimumFractionDigits: 2});
+            pnlPercentEl.textContent = (parseFloat(totalPnLPercent) >= 0 ? '+' : '') + totalPnLPercent + '%';
+            
+            pnlEl.parentElement.className = 'card mf-card pnl ' + (totalPnL >= 0 ? 'profit' : 'loss');
+            pnlPercentEl.className = 'mf-card-percent ' + (parseFloat(totalPnLPercent) >= 0 ? 'up' : 'down');
+        }
+
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('addFundModal')) closeAddFundModal();
+            if (event.target === document.getElementById('editFundModal')) closeEditModal();
+        }
+
+        document.getElementById('fundSearchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchFund();
+        });
     </script>
 </body>
 </html>
