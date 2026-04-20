@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0a0e17">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Finance App">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="apple-touch-startup-image" href="icons/icon-512.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>Finance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-frame">
+        
+        <!-- FIXED HEADER -->
+        <header class="top-header">
+            <div class="header-content">
+                <div class="profile">
+                    <div class="avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="name">
+                        <h1>Sureshkumar</h1>
+                        <p>sureshkumar</p>
+                    </div>
+                </div>
+                
+                <!-- Logout Button -->
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Wrapper - Scrollable -->
+        <div class="content-wrapper">
+            
+            <!-- Market Indices -->
+            <section class="market-indices">
+                <div class="card nifty">
+                    <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
+                    <div class="value">24,005.80</div>
+                    <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> 882.15 (+3.81%)</div>
+                </div>
+                <div class="card sensex">
+                    <div class="card-header"><i class="fa-solid fa-chart-bar"></i> Sensex</div>
+                    <div class="value">77,535.53</div>
+                    <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> 2,918.95 (+3.91%)</div>
+                </div>
+            </section>
+
+            <!-- Total Value Chart -->
+            <section class="total-value-section">
+                <h2 class="section-title">Total Value</h2>
+                <div class="donut-container">
+                    <div class="donut-chart" id="donutChart">
+                        <div class="donut-inner">
+                            <p>Total Value</p>
+                            <h2>₹1.42L</h2>
+                            <p class="change">↗ +4.55%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="legend" id="chartLegend"></div>
+            </section>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid">
+                <div class="card stat-card invested">
+                    <p class="label">Invested</p>
+                    <p class="amount">₹1,35,932.03</p>
+                </div>
+                <div class="card stat-card current">
+                    <p class="label">Current</p>
+                    <p class="amount">₹1,42,111.51</p>
+                </div>
+                <div class="card stat-card pnl">
+                    <p class="label">P&L</p>
+                    <p class="amount">+₹6,179.48</p>
+                    <p class="sub">+4.55%</p>
+                </div>
+            </section>
+
+            <!-- Portfolio Summary -->
+            <section class="portfolio-summary">
+                <div class="card summary-card mutual-funds" onclick="window.location.href='mutual-funds.html'">
+                    <div class="left">
+                        <div class="bar-indicator"></div>
+                        <div>
+                            <h3>Mutual Funds</h3>
+                            <p>2 funds</p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="card summary-card nps">
+                    <div class="left">
+                        <div class="text">
+                            <h3>NPS</h3>
+                            <p>1 account</p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <h3>₹36.9K</h3>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="window.location.href='/'">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='mutual-funds.html'">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Mutual Funds</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>NPS</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-d"></i>
+                <span>FD</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Watchlist</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <script>
+        // Fund Data for Dynamic Chart
+        const fundData = [
+            { name: 'Parag Parikh Flexi Cap', value: 52000, color: '#38ef7d' },
+            { name: 'UTI Nifty 50 Index Fund', value: 53200, color: '#0072ff' },
+            { name: 'NPS', value: 36900, color: '#f7971e' }
+        ];
+
+        // Calculate Total and Percentages
+        const totalValue = fundData.reduce((sum, fund) => sum + fund.value, 0);
+        
+        // Generate Conic Gradient for Donut Chart
+        function generateDonutGradient() {
+            let gradient = 'conic-gradient(';
+            let currentPercent = 0;
+            
+            fundData.forEach((fund, index) => {
+                const percentage = (fund.value / totalValue) * 100;
+                const startPercent = currentPercent;
+                const endPercent = currentPercent + percentage;
+                
+                gradient += `${fund.color} ${startPercent}% ${endPercent}%`;
+                
+                if (index < fundData.length - 1) {
+                    gradient += ', ';
+                }
+                
+                currentPercent = endPercent;
+            });
+            
+            gradient += ')';
+            return gradient;
+        }
+
+        // Generate Legend HTML
+        function generateLegend() {
+            const legendContainer = document.getElementById('chartLegend');
+            let legendHTML = '';
+            
+            fundData.forEach(fund => {
+                const percentage = ((fund.value / totalValue) * 100).toFixed(1);
+                
+                legendHTML += `
+                    <div class="legend-item">
+                        <span class="dot" style="background: ${fund.color}"></span>
+                        <span>${fund.name} (${percentage}%)</span>
+                    </div>
+                `;
+            });
+            
+            legendContainer.innerHTML = legendHTML;
+        }
+
+        // Apply Dynamic Chart
+        document.getElementById('donutChart').style.background = generateDonutGradient();
+        generateLegend();
+
+        // Logout Function
+        function handleLogout() {
+            if(confirm("Are you sure you want to logout?")) {
+                alert("Logged out successfully!");
+            }
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker Registered'))
+                    .catch(err => console.log('Service Worker Error:', err));
+            });
+        }
+
+        // Prevent zoom on double tap (iOS)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (event) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
