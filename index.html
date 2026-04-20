@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Finance Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,6 +12,8 @@
 </head>
 <body>
     <div class="mobile-frame">
+        
+        <!-- HEADER -->
         <header class="top-header">
             <div class="header-content">
                 <div class="profile">
@@ -29,22 +30,27 @@
             </div>
         </header>
 
+        <!-- SINGLE NIFTY CARD -->
         <div class="market-indices-fixed">
-            <div class="card nifty">
-                <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
-                <div class="value">24,005.80</div>
-                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +3.81%</div>
-            </div>
-            <div class="card sensex">
-                <div class="card-header"><i class="fa-solid fa-chart-bar"></i> Sensex</div>
-                <div class="value">77,535.53</div>
-                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +3.91%</div>
+            <div class="card nifty-single">
+                <div class="nifty-header">
+                    <div class="nifty-left">
+                        <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
+                        <div class="value">24,005.80</div>
+                        <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +882.15 (+3.81%)</div>
+                    </div>
+                    <button class="refresh-btn" onclick="refreshNifty()">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
+        <!-- SCROLLABLE CONTENT -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
             
+            <!-- Total Value Section -->
             <section class="total-value-section">
                 <h2 class="section-title">Total Value</h2>
                 <div class="donut-container">
@@ -59,6 +65,7 @@
                 <div class="legend" id="chartLegend"></div>
             </section>
 
+            <!-- Stats Grid -->
             <section class="stats-grid">
                 <div class="card stat-card invested">
                     <p class="label">Invested</p>
@@ -75,27 +82,48 @@
                 </div>
             </section>
 
-            <section class="portfolio-summary">
-                <div class="card summary-card" onclick="window.location.href='mutual-funds.html'">
-                    <div class="left">
-                        <div class="bar-indicator"></div>
-                        <div>
-                            <h3>Mutual Funds</h3>
-                            <p>2 funds</p>
-                        </div>
+            <!-- Quick Access Cards (Above Footer) -->
+            <section class="quick-access-section">
+                <div class="card quick-access-card" onclick="window.location.href='mutual-funds.html'">
+                    <div class="quick-icon mutual-funds-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
                     </div>
-                    <div class="right"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="quick-info">
+                        <h3>Mutual Funds</h3>
+                        <p>2 funds</p>
+                    </div>
+                    <div class="quick-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
                 </div>
-                <div class="card summary-card" onclick="window.location.href='nps.html'">
-                    <div class="left">
+                <div class="card quick-access-card" onclick="window.location.href='nps.html'">
+                    <div class="quick-icon nps-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="quick-info">
                         <h3>NPS</h3>
                         <p>1 account</p>
                     </div>
-                    <div class="right"><h3>₹36.9K</h3></div>
+                    <div class="quick-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="card quick-access-card">
+                    <div class="quick-icon fd-icon">
+                        <i class="fa-solid fa-d"></i>
+                    </div>
+                    <div class="quick-info">
+                        <h3>FD</h3>
+                        <p>0 accounts</p>
+                    </div>
+                    <div class="quick-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
                 </div>
             </section>
         </div>
 
+        <!-- BOTTOM NAVIGATION -->
         <nav class="bottom-nav">
             <div class="nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item" onclick="window.location.href='mutual-funds.html'"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
@@ -106,6 +134,7 @@
     </div>
 
     <script>
+        // Fund Data for Dynamic Chart
         const fundData = [
             { name: 'Parag Parikh Flexi Cap', value: 52000, color: '#38ef7d' },
             { name: 'UTI Nifty 50 Index Fund', value: 53200, color: '#0072ff' },
@@ -143,6 +172,14 @@
             if(confirm("Are you sure you want to logout?")) {
                 alert("Logged out successfully!");
             }
+        }
+
+        function refreshNifty() {
+            const refreshBtn = document.querySelector('.refresh-btn i');
+            refreshBtn.classList.add('fa-spin');
+            setTimeout(() => {
+                refreshBtn.classList.remove('fa-spin');
+            }, 1000);
         }
     </script>
 </body>
