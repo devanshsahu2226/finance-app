@@ -106,7 +106,7 @@ body {
     font-weight: 600;
 }
 
-/* ==================== SINGLE NIFTY CARD ==================== */
+/* ==================== SINGLE NIFTY CARD (HOME) ==================== */
 .market-indices-fixed {
     position: fixed;
     top: 75px;
@@ -181,13 +181,172 @@ body {
     transform: scale(0.95);
 }
 
-.refresh-btn i.fa-spin {
-    animation: fa-spin 1s linear infinite;
+/* ==================== MF SUMMARY CARDS ==================== */
+.mf-summary-cards {
+    position: fixed;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+    z-index: 999;
+}
+
+.mf-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mf-card.invested {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+}
+
+.mf-card.current {
+    background: linear-gradient(135deg, #2e1065 0%, #0f172a 100%);
+    border-color: #4c1d95;
+}
+
+.mf-card.pnl {
+    background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+    border-color: #10b981;
+}
+
+.mf-card-label {
+    font-size: 10px;
+    color: #a0a5b1;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mf-card-label i {
+    font-size: 9px;
+}
+
+.mf-card-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.mf-card-percent {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.mf-card-percent.up {
+    color: #38ef7d;
+    background: rgba(56,239,125,0.15);
+}
+
+.mf-card-percent.down {
+    color: #ff4b4b;
+    background: rgba(255,75,75,0.15);
+}
+
+/* ==================== NPS SUMMARY CARDS ==================== */
+.nps-summary-cards {
+    position: fixed;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+    z-index: 999;
+}
+
+.nps-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.nps-card.invested {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+}
+
+.nps-card.current {
+    background: linear-gradient(135deg, #2e1065 0%, #0f172a 100%);
+    border-color: #4c1d95;
+}
+
+.nps-card.pnl {
+    background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+    border-color: #10b981;
+}
+
+.nps-card-label {
+    font-size: 10px;
+    color: #a0a5b1;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nps-card-label i {
+    font-size: 9px;
+}
+
+.nps-card-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.nps-card-percent {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.nps-card-percent.up {
+    color: #38ef7d;
+    background: rgba(56,239,125,0.15);
+}
+
+.nps-card-percent.down {
+    color: #ff4b4b;
+    background: rgba(255,75,75,0.15);
+}
+
+/* Hide Old NPS Elements */
+.nps-market-cards, .nps-pl-summary, .nps-overall-return {
+    display: none;
 }
 
 /* ==================== CONTENT ==================== */
 .content-wrapper {
-    padding-top: 155px;
+    padding-top: 165px;
     padding-bottom: 85px;
 }
 
@@ -337,7 +496,7 @@ body {
     margin-top: 3px;
 }
 
-/* ==================== QUICK ACCESS CARDS (NEW) ==================== */
+/* ==================== QUICK ACCESS CARDS ==================== */
 .quick-access-section {
     padding: 0 16px;
     display: grid;
@@ -519,7 +678,7 @@ body {
     color: #ff4b4b;
 }
 
-/* ==================== NPS STYLES ==================== */
+/* ==================== NPS HEADER ==================== */
 .nps-header {
     background: linear-gradient(135deg, #1a1f3a, #0f141f);
 }
@@ -570,87 +729,7 @@ body {
     cursor: pointer;
 }
 
-.nps-market-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    padding: 0 16px;
-    margin-bottom: 20px;
-}
-
-.market-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 12px;
-    position: relative;
-}
-
-.market-card.nifty {
-    background: linear-gradient(135deg, rgba(17,153,142,0.2), rgba(56,239,125,0.1));
-    border-color: rgba(56,239,125,0.3);
-}
-
-.market-card.sensex {
-    background: linear-gradient(135deg, rgba(0,198,255,0.2), rgba(0,114,255,0.1));
-    border-color: rgba(0,114,255,0.3);
-}
-
-.market-card.pnl {
-    background: linear-gradient(135deg, rgba(17,153,142,0.2), rgba(56,239,125,0.1));
-    border-color: rgba(56,239,125,0.3);
-}
-
-.market-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    margin-bottom: 6px;
-}
-
-.market-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.market-name {
-    font-size: 9px;
-    color: #a0a5b1;
-}
-
-.market-value {
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.market-value.pnl-value {
-    font-size: 14px;
-    color: #38ef7d;
-}
-
-.market-change {
-    font-size: 8px;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    color: #38ef7d;
-}
-
-.pnl-chart {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 30px;
-    opacity: 0.1;
-    color: #38ef7d;
-}
-
+/* ==================== NPS SCHEMES ==================== */
 .nps-schemes-section {
     padding: 0 16px;
     margin-bottom: 20px;
@@ -758,93 +837,6 @@ body {
     align-items: center;
     gap: 3px;
     cursor: pointer;
-}
-
-.nps-pl-summary {
-    background: linear-gradient(135deg, rgba(17,153,142,0.15), rgba(56,239,125,0.05));
-    border: 1px solid rgba(56,239,125,0.3);
-    border-radius: 12px;
-    padding: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.nps-pl-left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #38ef7d;
-}
-
-.nps-pl-right {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    color: #a0a5b1;
-}
-
-.nps-return {
-    font-size: 11px;
-    font-weight: 600;
-    color: #38ef7d;
-}
-
-.nps-overall-return {
-    padding: 0 16px;
-    margin-bottom: 20px;
-}
-
-.overall-return-content {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.overall-return-content i {
-    color: #38ef7d;
-    font-size: 12px;
-}
-
-.overall-label {
-    font-size: 11px;
-    color: #a0a5b1;
-}
-
-.overall-value {
-    font-size: 12px;
-    font-weight: 600;
-    color: #38ef7d;
-}
-
-.overall-amount {
-    font-size: 11px;
-    color: white;
-}
-
-.overall-badge {
-    background: rgba(56,239,125,0.15);
-    border: 1px solid rgba(56,239,125,0.3);
-    color: #38ef7d;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    margin-left: auto;
 }
 
 /* ==================== BOTTOM NAV ==================== */

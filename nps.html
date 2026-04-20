@@ -12,6 +12,8 @@
 </head>
 <body>
     <div class="mobile-frame">
+        
+        <!-- HEADER -->
         <header class="top-header nps-header">
             <div class="header-content">
                 <div class="nps-title-section">
@@ -26,36 +28,31 @@
             </div>
         </header>
 
+        <!-- THREE CARDS (Invested, Current, P&L) -->
+        <div class="nps-summary-cards">
+            <div class="card nps-card invested">
+                <div class="nps-card-label"><i class="fa-solid fa-wallet"></i> Invested</div>
+                <div class="nps-card-value">₹36,900.00</div>
+            </div>
+            <div class="card nps-card current">
+                <div class="nps-card-label"><i class="fa-solid fa-chart-line"></i> Current Value</div>
+                <div class="nps-card-value">₹43,079.48</div>
+            </div>
+            <div class="card nps-card pnl">
+                <div class="nps-card-label"><i class="fa-solid fa-arrow-trend-up"></i> P&L</div>
+                <div class="nps-card-value">+₹6,179.48</div>
+                <div class="nps-card-percent up">+20.13%</div>
+            </div>
+        </div>
+
+        <!-- SCROLLABLE CONTENT -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
             
-            <section class="nps-market-cards">
-                <div class="market-card nifty">
-                    <div class="market-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="market-info">
-                        <span class="market-name">Nifty 50</span>
-                        <span class="market-value">24,353.55</span>
-                        <span class="market-change up"><i class="fa-solid fa-arrow-trend-up"></i> +156.80 (+0.65%)</span>
-                    </div>
-                </div>
-                <div class="market-card sensex">
-                    <div class="market-icon"><i class="fa-solid fa-building"></i></div>
-                    <div class="market-info">
-                        <span class="market-name">Sensex</span>
-                        <span class="market-value">78,493.54</span>
-                        <span class="market-change up"><i class="fa-solid fa-arrow-trend-up"></i> +504.86 (+0.65%)</span>
-                    </div>
-                </div>
-                <div class="market-card pnl">
-                    <div class="market-info">
-                        <span class="market-name">P&L</span>
-                        <span class="market-value pnl-value">+20.13%</span>
-                    </div>
-                    <div class="pnl-chart"><i class="fa-solid fa-chart-area"></i></div>
-                </div>
-            </section>
-
+            <!-- Schemes Section -->
             <section class="nps-schemes-section">
+                
+                <!-- Scheme Card 1 -->
                 <div class="scheme-card">
                     <div class="scheme-header">
                         <div class="scheme-title">
@@ -75,6 +72,7 @@
                     </div>
                 </div>
 
+                <!-- Scheme Card 2 -->
                 <div class="scheme-card">
                     <div class="scheme-indicator equity"></div>
                     <div class="scheme-header">
@@ -95,6 +93,7 @@
                     </div>
                 </div>
 
+                <!-- Scheme Card 3 -->
                 <div class="scheme-card">
                     <div class="scheme-indicator govt"></div>
                     <div class="scheme-header">
@@ -115,23 +114,10 @@
                     </div>
                 </div>
 
-                <div class="nps-pl-summary">
-                    <div class="nps-pl-left"><i class="fa-solid fa-arrow-trend-up"></i> NPS P&L: +₹6,179.48</div>
-                    <div class="nps-pl-right"><i class="fa-solid fa-arrow-right"></i> Overall NPS return: <span class="nps-return up">+20.13% <i class="fa-solid fa-arrow-trend-up"></i></span></div>
-                </div>
-            </section>
-
-            <section class="nps-overall-return">
-                <div class="overall-return-content">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    <span class="overall-label">Overall NPS return:</span>
-                    <span class="overall-value">+20.13%</span>
-                    <span class="overall-amount">+₹6,179.48</span>
-                    <div class="overall-badge up">+25.26% <i class="fa-solid fa-arrow-trend-up"></i></div>
-                </div>
             </section>
         </div>
 
+        <!-- BOTTOM NAVIGATION -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item" onclick="window.location.href='mutual-funds.html'"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
@@ -142,11 +128,14 @@
     </div>
 
     <script>
+        // NAV Refresh Button Click
         document.querySelectorAll('.nav-refresh-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const originalHTML = this.innerHTML;
                 this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
-                setTimeout(() => { this.innerHTML = originalHTML; }, 2000);
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                }, 2000);
             });
         });
     </script>

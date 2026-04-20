@@ -12,6 +12,8 @@
 </head>
 <body>
     <div class="mobile-frame">
+        
+        <!-- HEADER -->
         <header class="top-header">
             <div class="header-content">
                 <div class="header-left">
@@ -22,28 +24,35 @@
             </div>
         </header>
 
-        <div class="market-indices-fixed">
-            <div class="card nifty">
-                <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
-                <div class="value">24,353.55</div>
-                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +0.65%</div>
+        <!-- THREE CARDS (Invested, Current, P&L) -->
+        <div class="mf-summary-cards">
+            <div class="card mf-card invested">
+                <div class="mf-card-label"><i class="fa-solid fa-wallet"></i> Invested</div>
+                <div class="mf-card-value">₹1,05,232.03</div>
             </div>
-            <div class="card sensex">
-                <div class="card-header"><i class="fa-solid fa-money-bill-trend-up"></i> Sensex</div>
-                <div class="value">78,493.53</div>
-                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +0.65%</div>
+            <div class="card mf-card current">
+                <div class="mf-card-label"><i class="fa-solid fa-chart-line"></i> Current Value</div>
+                <div class="mf-card-value">₹1,12,111.51</div>
+            </div>
+            <div class="card mf-card pnl">
+                <div class="mf-card-label"><i class="fa-solid fa-arrow-trend-up"></i> P&L</div>
+                <div class="mf-card-value">+₹6,879.48</div>
+                <div class="mf-card-percent up">+4.55%</div>
             </div>
         </div>
 
+        <!-- SCROLLABLE CONTENT -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
             
+            <!-- Mutual Funds Section -->
             <section class="funds-section">
                 <div class="section-header">
                     <h2 class="section-title">Mutual Funds <span class="fund-count">(2)</span></h2>
                     <div class="timestamp"><i class="fa-regular fa-clock"></i> <span id="currentTime">06:01 PM</span></div>
                 </div>
 
+                <!-- Fund Card 1 - Profit -->
                 <div class="fund-card profit">
                     <div class="fund-header">
                         <div class="fund-code">Code: 122639</div>
@@ -66,6 +75,7 @@
                     </div>
                 </div>
 
+                <!-- Fund Card 2 - Loss -->
                 <div class="fund-card loss">
                     <div class="fund-header">
                         <div class="fund-code">Code: 120716</div>
@@ -90,6 +100,7 @@
             </section>
         </div>
 
+        <!-- BOTTOM NAVIGATION -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
@@ -100,6 +111,7 @@
     </div>
 
     <script>
+        // Update Current Time
         function updateTime() {
             const now = new Date();
             const hours = now.getHours();
