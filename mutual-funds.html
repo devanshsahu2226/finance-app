@@ -2,68 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Finance App">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Mutual Funds - Finance Dashboard</title>
+    <title>Mutual Funds</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="mobile-frame">
         <header class="top-header">
             <div class="header-content">
                 <div class="header-left">
-                    <a href="index.html" class="back-btn">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
+                    <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
                     <h1 class="page-title">Mutual Funds</h1>
                 </div>
-                <button class="header-action-btn">
-                    <i class="fa-solid fa-up-right-from-square"></i>
-                </button>
+                <button class="header-action-btn"><i class="fa-solid fa-up-right-from-square"></i></button>
             </div>
         </header>
 
         <div class="market-indices-fixed">
             <div class="card nifty">
-                <div class="card-header">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Nifty 50</span>
-                </div>
+                <div class="card-header"><i class="fa-solid fa-chart-line"></i> Nifty 50</div>
                 <div class="value">24,353.55</div>
-                <div class="change up">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    <span>+0.65%</span>
-                </div>
+                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +0.65%</div>
             </div>
             <div class="card sensex">
-                <div class="card-header">
-                    <i class="fa-solid fa-money-bill-trend-up"></i>
-                    <span>Sensex</span>
-                </div>
+                <div class="card-header"><i class="fa-solid fa-money-bill-trend-up"></i> Sensex</div>
                 <div class="value">78,493.53</div>
-                <div class="change up">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                    <span>+0.65%</span>
-                </div>
+                <div class="change up"><i class="fa-solid fa-arrow-trend-up"></i> +0.65%</div>
             </div>
         </div>
 
         <div class="content-wrapper">
             <div class="content-spacer"></div>
+            
             <section class="funds-section">
                 <div class="section-header">
                     <h2 class="section-title">Mutual Funds <span class="fund-count">(2)</span></h2>
-                    <div class="timestamp">
-                        <i class="fa-regular fa-clock"></i>
-                        <span id="currentTime">06:01 PM</span>
-                    </div>
+                    <div class="timestamp"><i class="fa-regular fa-clock"></i> <span id="currentTime">06:01 PM</span></div>
                 </div>
 
                 <div class="fund-card profit">
@@ -76,34 +54,15 @@
                     </div>
                     <h3 class="fund-name">Parag Parikh Flexi Cap Fund – Direct Plan – Growth</h3>
                     <div class="fund-details">
-                        <div class="detail-item">
-                            <p class="label">Invested</p>
-                            <p class="value">₹58,234.09</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Units</p>
-                            <p class="value">736.113</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Current NAV</p>
-                            <p class="value">₹91.99</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Current Value</p>
-                            <p class="value">₹67,711.50</p>
-                        </div>
+                        <div class="detail-item"><p class="label">Invested</p><p class="value">₹58,234.09</p></div>
+                        <div class="detail-item"><p class="label">Units</p><p class="value">736.113</p></div>
+                        <div class="detail-item"><p class="label">Current NAV</p><p class="value">₹91.99</p></div>
+                        <div class="detail-item"><p class="label">Current Value</p><p class="value">₹67,711.50</p></div>
                     </div>
                     <div class="fund-footer">
-                        <div class="pnl">
-                            <i class="fa-solid fa-arrow-trend-up"></i>
-                            <span>P&L: +₹9,477.41</span>
-                        </div>
-                        <div class="xirr">
-                            <span>XIRR +751.90% p.a.</span>
-                        </div>
-                        <div class="percentage positive">
-                            <span>+16.27%</span>
-                        </div>
+                        <div class="pnl"><i class="fa-solid fa-arrow-trend-up"></i> P&L: +₹9,477.41</div>
+                        <div class="xirr">XIRR +751.90% p.a.</div>
+                        <div class="percentage positive">+16.27%</div>
                     </div>
                 </div>
 
@@ -117,60 +76,26 @@
                     </div>
                     <h3 class="fund-name">UTI Nifty 50 Index Fund – Growth Option – Direct</h3>
                     <div class="fund-details">
-                        <div class="detail-item">
-                            <p class="label">Invested</p>
-                            <p class="value">₹46,997.94</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Units</p>
-                            <p class="value">269.866</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Current NAV</p>
-                            <p class="value">₹170.23</p>
-                        </div>
-                        <div class="detail-item">
-                            <p class="label">Current Value</p>
-                            <p class="value">₹45,939.88</p>
-                        </div>
+                        <div class="detail-item"><p class="label">Invested</p><p class="value">₹46,997.94</p></div>
+                        <div class="detail-item"><p class="label">Units</p><p class="value">269.866</p></div>
+                        <div class="detail-item"><p class="label">Current NAV</p><p class="value">₹170.23</p></div>
+                        <div class="detail-item"><p class="label">Current Value</p><p class="value">₹45,939.88</p></div>
                     </div>
                     <div class="fund-footer">
-                        <div class="pnl">
-                            <i class="fa-solid fa-arrow-trend-down"></i>
-                            <span>P&L: -₹1,058.06</span>
-                        </div>
-                        <div class="xirr">
-                            <span>XIRR -27.64% p.a.</span>
-                        </div>
-                        <div class="percentage negative">
-                            <span>-2.25%</span>
-                        </div>
+                        <div class="pnl"><i class="fa-solid fa-arrow-trend-down"></i> P&L: -₹1,058.06</div>
+                        <div class="xirr">XIRR -27.64% p.a.</div>
+                        <div class="percentage negative">-2.25%</div>
                     </div>
                 </div>
             </section>
         </div>
 
         <nav class="bottom-nav">
-            <a href="index.html" class="nav-item">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <div class="nav-item active">
-                <i class="fa-solid fa-chart-pie"></i>
-                <span>Mutual Funds</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>NPS</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-d"></i>
-                <span>FD</span>
-            </div>
-            <div class="nav-item">
-                <i class="fa-solid fa-star"></i>
-                <span>Watchlist</span>
-            </div>
+            <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
+            <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
+            <div class="nav-item" onclick="window.location.href='nps.html'"><i class="fa-solid fa-shield-halved"></i><span>NPS</span></div>
+            <div class="nav-item"><i class="fa-solid fa-d"></i><span>FD</span></div>
+            <div class="nav-item"><i class="fa-solid fa-star"></i><span>Watchlist</span></div>
         </nav>
     </div>
 
@@ -186,15 +111,6 @@
         }
         updateTime();
         setInterval(updateTime, 1000);
-
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (event) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
     </script>
 </body>
 </html>

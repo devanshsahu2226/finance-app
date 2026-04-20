@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0e17">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>NPS Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="top-header nps-header">
+            <div class="header-content">
+                <div class="nps-title-section">
+                    <div class="nps-icon"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="nps-title">
+                        <h1>National Pension System</h1>
+                        <p>NPS Portfolio</p>
+                        <span class="nps-meta">Added 25/3/2026 · 3 schemes</span>
+                    </div>
+                </div>
+                <button class="explore-btn"><span>Explore & Invest</span></button>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="content-spacer"></div>
+            
+            <section class="nps-market-cards">
+                <div class="market-card nifty">
+                    <div class="market-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="market-info">
+                        <span class="market-name">Nifty 50</span>
+                        <span class="market-value">24,353.55</span>
+                        <span class="market-change up"><i class="fa-solid fa-arrow-trend-up"></i> +156.80 (+0.65%)</span>
+                    </div>
+                </div>
+                <div class="market-card sensex">
+                    <div class="market-icon"><i class="fa-solid fa-building"></i></div>
+                    <div class="market-info">
+                        <span class="market-name">Sensex</span>
+                        <span class="market-value">78,493.54</span>
+                        <span class="market-change up"><i class="fa-solid fa-arrow-trend-up"></i> +504.86 (+0.65%)</span>
+                    </div>
+                </div>
+                <div class="market-card pnl">
+                    <div class="market-info">
+                        <span class="market-name">P&L</span>
+                        <span class="market-value pnl-value">+20.13%</span>
+                    </div>
+                    <div class="pnl-chart"><i class="fa-solid fa-chart-area"></i></div>
+                </div>
+            </section>
+
+            <section class="nps-schemes-section">
+                <div class="scheme-card">
+                    <div class="scheme-header">
+                        <div class="scheme-title">
+                            <h3>Scheme E (Equity)</h3>
+                            <p class="scheme-code">Code: SM001003 · NAV: ₹51.837</p>
+                            <p class="scheme-percentage">44.36%</p>
+                        </div>
+                        <div class="scheme-value">
+                            <h3>₹15,449.06</h3>
+                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +13.44%</p>
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <div class="scheme-footer">
+                        <span class="scheme-units">Units: 298.0332</span>
+                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
+                    </div>
+                </div>
+
+                <div class="scheme-card">
+                    <div class="scheme-indicator equity"></div>
+                    <div class="scheme-header">
+                        <div class="scheme-title">
+                            <h3>Scheme E (Equity)</h3>
+                            <p class="scheme-code">Code: SM001003 · NAV: ₹45.206</p>
+                            <p class="scheme-percentage">207.07%</p>
+                        </div>
+                        <div class="scheme-value">
+                            <h3>₹15,449.06</h3>
+                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +13.44%</p>
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <div class="scheme-footer">
+                        <span class="scheme-units">Units: 231.0101</span>
+                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
+                    </div>
+                </div>
+
+                <div class="scheme-card">
+                    <div class="scheme-indicator govt"></div>
+                    <div class="scheme-header">
+                        <div class="scheme-title">
+                            <h3>Scheme C (Govt Securities)</h3>
+                            <p class="scheme-code">Code: SM001005 · NAV: ₹40.800</p>
+                            <p class="scheme-percentage">27.07%</p>
+                        </div>
+                        <div class="scheme-value">
+                            <h3>₹10,443.16</h3>
+                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +25.66%</p>
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <div class="scheme-footer">
+                        <span class="scheme-units">Units: 231.0101</span>
+                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
+                    </div>
+                </div>
+
+                <div class="nps-pl-summary">
+                    <div class="nps-pl-left"><i class="fa-solid fa-arrow-trend-up"></i> NPS P&L: +₹6,179.48</div>
+                    <div class="nps-pl-right"><i class="fa-solid fa-arrow-right"></i> Overall NPS return: <span class="nps-return up">+20.13% <i class="fa-solid fa-arrow-trend-up"></i></span></div>
+                </div>
+            </section>
+
+            <section class="nps-overall-return">
+                <div class="overall-return-content">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span class="overall-label">Overall NPS return:</span>
+                    <span class="overall-value">+20.13%</span>
+                    <span class="overall-amount">+₹6,179.48</span>
+                    <div class="overall-badge up">+25.26% <i class="fa-solid fa-arrow-trend-up"></i></div>
+                </div>
+            </section>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
+            <div class="nav-item" onclick="window.location.href='mutual-funds.html'"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
+            <div class="nav-item active"><i class="fa-solid fa-shield-halved"></i><span>NPS</span></div>
+            <div class="nav-item"><i class="fa-solid fa-d"></i><span>FD</span></div>
+            <div class="nav-item"><i class="fa-solid fa-star"></i><span>Watchlist</span></div>
+        </nav>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-refresh-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalHTML = this.innerHTML;
+                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
+                setTimeout(() => { this.innerHTML = originalHTML; }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
