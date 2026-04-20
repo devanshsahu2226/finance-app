@@ -3,33 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Finance App">
-    
-    <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    <link rel="apple-touch-startup-image" href="icons/icon-512.png">
-    
-    <!-- Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Fonts & Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png?v=3">
+    <link rel="apple-touch-startup-image" href="icons/icon-512.png?v=3">
+    <link rel="manifest" href="manifest.json?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <title>Mutual Funds - Finance Dashboard</title>
-    <!-- Cache Buster Added -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-
     <div class="mobile-frame">
-        
-        <!-- FIXED HEADER -->
         <header class="top-header">
             <div class="header-content">
                 <div class="header-left">
@@ -44,7 +31,6 @@
             </div>
         </header>
 
-        <!-- Fixed Market Indices -->
         <div class="market-indices-fixed">
             <div class="card nifty">
                 <div class="card-header">
@@ -70,11 +56,9 @@
             </div>
         </div>
 
-        <!-- Content Wrapper - Scrollable -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
 
-            <!-- Mutual Funds Section -->
             <section class="funds-section">
                 <div class="section-header">
                     <h2 class="section-title">Mutual Funds <span class="fund-count">(2)</span></h2>
@@ -84,7 +68,6 @@
                     </div>
                 </div>
 
-                <!-- Fund Card 1 - Profit -->
                 <div class="fund-card profit">
                     <div class="fund-header">
                         <div class="fund-code">Code: 122639</div>
@@ -129,7 +112,6 @@
                     </div>
                 </div>
 
-                <!-- Fund Card 2 - Loss -->
                 <div class="fund-card loss">
                     <div class="fund-header">
                         <div class="fund-code">Code: 120716</div>
@@ -173,12 +155,9 @@
                         </div>
                     </div>
                 </div>
-
             </section>
-
         </div>
 
-        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <a href="/" class="nav-item">
                 <i class="fa-solid fa-house"></i>
@@ -201,11 +180,9 @@
                 <span>Watchlist</span>
             </div>
         </nav>
-
     </div>
 
     <script>
-        // Update Current Time
         function updateTime() {
             const now = new Date();
             const hours = now.getHours();
@@ -218,19 +195,22 @@
         updateTime();
         setInterval(updateTime, 1000);
 
-        // Register Service Worker with Cache Busting
+        // Force Service Worker Update
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=2')
-                    .then(reg => {
-                        console.log('Service Worker Registered');
-                        reg.update();
-                    })
-                    .catch(err => console.log('Service Worker Error:', err));
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for(let registration of registrations) {
+                        registration.unregister();
+                    }
+                }).then(() => {
+                    return navigator.serviceWorker.register('./sw.js?v=3');
+                }).then(reg => {
+                    console.log('Service Worker Registered v3');
+                    reg.update();
+                }).catch(err => console.log('Service Worker Error:', err));
             });
         }
 
-        // Prevent zoom on double tap (iOS)
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (event) => {
             const now = Date.now();
