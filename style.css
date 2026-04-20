@@ -47,7 +47,7 @@ body {
     overflow: hidden;
 }
 
-/* FIXED HEADER */
+/* FIXED HEADER - z-index: 1001 (Highest) */
 .top-header {
     position: fixed;
     top: 0;
@@ -57,7 +57,7 @@ body {
     max-width: 390px;
     background: #0f141f;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 1000;
+    z-index: 1001;
     padding: 12px 20px;
 }
 
@@ -194,10 +194,10 @@ body {
     transform: scale(0.95);
 }
 
-/* FIXED MARKET INDICES - Both Pages */
+/* FIXED MARKET INDICES - z-index: 1000 (Below Header) */
 .market-indices-fixed {
     position: fixed;
-    top: 70px;
+    top: 75px; /* Header height se neeche */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -205,7 +205,7 @@ body {
     display: flex;
     gap: 8px;
     padding: 0 12px;
-    z-index: 999;
+    z-index: 1000; /* Header se kam */
     background: rgba(10, 14, 23, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -287,7 +287,7 @@ body {
 /* Content Wrapper - Scrollable */
 .content-wrapper {
     position: absolute;
-    top: 145px;
+    top: 155px; /* Header (75px) + Market Cards (80px) */
     bottom: 70px;
     left: 0;
     right: 0;
@@ -725,7 +725,7 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 0 10px;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
