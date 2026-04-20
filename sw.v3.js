@@ -3,13 +3,10 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/mutual-funds.html',
-  '/style.css?v=3',
-  '/manifest.json?v=3',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+  '/style.v3.css',
+  '/manifest.json'
 ];
 
-// Install Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -21,7 +18,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate Service Worker - Delete Old Caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -38,7 +34,6 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch Event - Network First, Cache Fallback
 self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
