@@ -83,91 +83,61 @@
         </nav>
 
         <!-- ADD FUND MODAL -->
-        <div id="addFundModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h2>Add Fund to Portfolio</h2>
-                        <p>Search by name or AMFI code</p>
-                    </div>
-                    <button class="modal-close" onclick="closeAddFundModal()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div id="searchStep">
-                    <div class="search-container">
-                        <input type="text" id="fundSearchInput" placeholder="Type fund name or AMFI code..." class="search-input">
-                        <button class="search-btn" onclick="searchFund()">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <span>Search</span>
-                        </button>
-                    </div>
-                    <div id="searchResults" class="search-results"></div>
-                    <p class="hint-text">Select a fund above to continue</p>
-                </div>
-
-                <div id="fundDetailsStep" style="display: none;">
-                    <div class="selected-fund" id="selectedFundInfo">
-                        <div class="fund-check"><i class="fa-solid fa-check-circle"></i></div>
-                        <div class="fund-info">
-                            <h3 id="selectedFundName">Fund Name</h3>
-                            <p class="fund-nav">Current NAV: <span id="selectedFundNAV">₹0.00</span></p>
-                        </div>
-                        <button class="remove-fund" onclick="resetSearch()"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-
-                    <div class="input-group">
-                        <label>₹ Invested Amount</label>
-                        <input type="number" id="investedAmount" placeholder="e.g. 50000" class="amount-input">
-                    </div>
-
-                    <div class="input-group">
-                        <label># Units</label>
-                        <input type="number" id="unitsInput" placeholder="e.g. 123.456" class="amount-input" step="0.001">
-                    </div>
-
-                    <button class="add-to-portfolio-btn" onclick="addToPortfolio()">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Add to Portfolio</span>
-                    </button>
-                </div>
+<div id="addFundModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div>
+                <h2>Add Fund to Portfolio</h2>
+                <p>Search by name or AMFI code</p>
             </div>
+            <button class="modal-close" onclick="closeAddFundModal()" type="button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
-        <!-- EDIT FUND MODAL -->
-        <div id="editFundModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h2>Edit Fund</h2>
-                        <p>Update your investment details</p>
-                    </div>
-                    <button class="modal-close" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div class="selected-fund">
-                    <div class="fund-info" style="flex: 1;">
-                        <h3 id="editFundName">Fund Name</h3>
-                        <p class="fund-nav">Code: <span id="editFundCode">000000</span></p>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>₹ Invested Amount</label>
-                    <input type="number" id="editInvestedAmount" class="amount-input">
-                </div>
-
-                <div class="input-group">
-                    <label># Units</label>
-                    <input type="number" id="editUnitsInput" class="amount-input" step="0.001">
-                </div>
-
-                <button class="add-to-portfolio-btn" onclick="saveEdit()">
-                    <i class="fa-solid fa-check"></i>
-                    <span>Save Changes</span>
+        <!-- Step 1: Search -->
+        <div id="searchStep">
+            <div class="search-container">
+                <input type="text" id="fundSearchInput" placeholder="Type fund name or AMFI code..." class="search-input">
+                <button class="search-btn" onclick="searchFund()" type="button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search</span>
                 </button>
             </div>
+            <div id="searchResults" class="search-results"></div>
+            <p class="hint-text">Select a fund above to continue</p>
+        </div>
+
+        <!-- Step 2: Fund Details -->
+        <div id="fundDetailsStep" style="display: none;">
+            <div class="selected-fund" id="selectedFundInfo">
+                <div class="fund-check"><i class="fa-solid fa-check-circle"></i></div>
+                <div class="fund-info">
+                    <h3 id="selectedFundName">Fund Name</h3>
+                    <p class="fund-nav">Current NAV: <span id="selectedFundNAV">₹0.00</span></p>
+                </div>
+                <button class="remove-fund" onclick="resetSearch()" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="input-group">
+                <label>₹ Invested Amount</label>
+                <input type="number" id="investedAmount" placeholder="e.g. 50000" class="amount-input">
+            </div>
+
+            <div class="input-group">
+                <label># Units</label>
+                <input type="number" id="unitsInput" placeholder="e.g. 123.456" class="amount-input" step="0.001">
+            </div>
+
+            <button class="add-to-portfolio-btn" onclick="addToPortfolio()" type="button">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add to Portfolio</span>
+            </button>
         </div>
     </div>
+</div>
 
     <script>
         const fundDatabase = {
@@ -207,93 +177,195 @@
             }
         }
 
-        function saveFunds() {
-            localStorage.setItem('mutualFunds', JSON.stringify(fundsList));
-        }
+       function saveFunds() {
+    localStorage.setItem('mutualFunds', JSON.stringify(fundsList));
+    console.log('Funds saved to localStorage');
+    
+    // Force update on all tabs/pages
+    if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('storage'));
+    }
+}
 
-        function openAddFundModal() {
-            document.getElementById('addFundModal').style.display = 'flex';
-            document.getElementById('fundSearchInput').value = '';
-            document.getElementById('searchResults').innerHTML = '';
-            document.getElementById('searchStep').style.display = 'block';
-            document.getElementById('fundDetailsStep').style.display = 'none';
-            selectedFund = null;
-        }
+       function openAddFundModal() {
+    console.log('Opening modal...');
+    
+    const modal = document.getElementById('addFundModal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+    
+    // Reset everything
+    document.getElementById('fundSearchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('searchStep').style.display = 'block';
+    document.getElementById('fundDetailsStep').style.display = 'none';
+    document.getElementById('investedAmount').value = '';
+    document.getElementById('unitsInput').value = '';
+    selectedFund = null;
+    
+    console.log('Modal opened');
+}
 
-        function closeAddFundModal() {
-            document.getElementById('addFundModal').style.display = 'none';
-        }
+function closeAddFundModal() {
+    console.log('Closing modal...');
+    
+    const modal = document.getElementById('addFundModal');
+    if (modal) {
+        modal.style.display = 'none';
+        console.log('Modal display set to none');
+    }
+    
+    // Reset all fields
+    document.getElementById('fundSearchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('searchStep').style.display = 'block';
+    document.getElementById('fundDetailsStep').style.display = 'none';
+    document.getElementById('investedAmount').value = '';
+    document.getElementById('unitsInput').value = '';
+    document.getElementById('selectedFundName').textContent = 'Fund Name';
+    document.getElementById('selectedFundNAV').textContent = '₹0.00';
+    selectedFund = null;
+    
+    console.log('Modal closed and reset');
+}
 
-        function openEditModal(fundCode) {
-            const fund = fundsList.find(f => f.code === fundCode);
-            if (!fund) return;
+function addToPortfolio() {
+    console.log('Add to Portfolio clicked');
+    
+    const investedInput = document.getElementById('investedAmount');
+    const unitsInput = document.getElementById('unitsInput');
+    
+    const invested = parseFloat(investedInput.value);
+    const units = parseFloat(unitsInput.value);
 
-            editingFundCode = fundCode;
-            document.getElementById('editFundName').textContent = fund.name;
-            document.getElementById('editFundCode').textContent = fund.code;
-            document.getElementById('editInvestedAmount').value = fund.invested;
-            document.getElementById('editUnitsInput').value = fund.units;
-            document.getElementById('editFundModal').style.display = 'flex';
-        }
+    console.log('Invested:', invested, 'Units:', units);
 
-        function closeEditModal() {
-            document.getElementById('editFundModal').style.display = 'none';
-            editingFundCode = null;
-        }
+    if (!invested || !units || invested <= 0 || units <= 0) {
+        alert('Please enter valid amounts');
+        return;
+    }
 
-        function searchFund() {
-            const term = document.getElementById('fundSearchInput').value.trim();
-            const results = document.getElementById('searchResults');
-            results.innerHTML = '';
+    if (!selectedFund) {
+        alert('Please select a fund first');
+        return;
+    }
 
-            if (!term) {
-                alert('Please enter AMFI code or fund name');
-                return;
+    const currentValue = parseFloat((units * selectedFund.nav).toFixed(2));
+    const pnl = parseFloat((currentValue - invested).toFixed(2));
+    const pnlPercent = parseFloat(((pnl / invested) * 100).toFixed(2));
+
+    const newFund = {
+        code: selectedFund.amfi,
+        name: selectedFund.name,
+        invested: invested,
+        units: units,
+        nav: selectedFund.nav,
+        currentValue: currentValue,
+        pnl: pnl,
+        pnlPercent: pnlPercent,
+        lastUpdated: new Date().toISOString()
+    };
+
+    console.log('Adding fund:', newFund);
+
+    fundsList.push(newFund);
+    saveFunds();
+    renderFunds();
+    updateSummary();
+    
+    // Force close modal immediately
+    console.log('Closing modal...');
+    const modal = document.getElementById('addFundModal');
+    if (modal) {
+        modal.style.display = 'none';
+        console.log('Modal should be closed now');
+    }
+    
+    // Reset form fields
+    document.getElementById('fundSearchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+    document.getElementById('searchStep').style.display = 'block';
+    document.getElementById('fundDetailsStep').style.display = 'none';
+    document.getElementById('investedAmount').value = '';
+    document.getElementById('unitsInput').value = '';
+    selectedFund = null;
+    
+    // Show success
+    setTimeout(() => {
+        alert('Fund added successfully!');
+    }, 100);
+}
+
+function searchFund() {
+    console.log('Searching fund...');
+    
+    const term = document.getElementById('fundSearchInput').value.trim();
+    const results = document.getElementById('searchResults');
+    results.innerHTML = '';
+
+    if (!term) {
+        alert('Please enter AMFI code or fund name');
+        return;
+    }
+
+    let found = fundDatabase[term];
+    
+    if (!found) {
+        for (let code in fundDatabase) {
+            if (fundDatabase[code].name.toLowerCase().includes(term.toLowerCase())) {
+                found = fundDatabase[code];
+                found.amfi = code;
+                break;
             }
-
-            let found = fundDatabase[term];
-            
-            if (!found) {
-                for (let code in fundDatabase) {
-                    if (fundDatabase[code].name.toLowerCase().includes(term.toLowerCase())) {
-                        found = fundDatabase[code];
-                        found.amfi = code;
-                        break;
-                    }
-                }
-            }
-
-            if (found) {
-                results.innerHTML = `
-                    <div class="search-result-item" onclick="selectFund('${found.amfi || term}')">
-                        <div class="result-check"><i class="fa-solid fa-check-circle"></i></div>
-                        <div class="result-info">
-                            <h4>${found.name}</h4>
-                            <p>Current NAV: ₹${found.nav}</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                results.innerHTML = '<p class="no-results">No fund found. Try: 119551, 118825, 125497</p>';
-            }
         }
+    }
 
-        function selectFund(amfiCode) {
-            selectedFund = fundDatabase[amfiCode];
-            selectedFund.amfi = amfiCode;
-            document.getElementById('searchStep').style.display = 'none';
-            document.getElementById('fundDetailsStep').style.display = 'block';
-            document.getElementById('selectedFundName').textContent = selectedFund.name;
-            document.getElementById('selectedFundNAV').textContent = '₹' + selectedFund.nav;
-            document.getElementById('investedAmount').value = '';
-            document.getElementById('unitsInput').value = '';
-        }
+    if (found) {
+        console.log('Found fund:', found.name);
+        results.innerHTML = `
+            <div class="search-result-item" onclick="selectFund('${found.amfi || term}')">
+                <div class="result-check"><i class="fa-solid fa-check-circle"></i></div>
+                <div class="result-info">
+                    <h4>${found.name}</h4>
+                    <p>Current NAV: ₹${found.nav}</p>
+                </div>
+            </div>
+        `;
+    } else {
+        results.innerHTML = '<p class="no-results">No fund found. Try: 119551, 118825, 125497</p>';
+    }
+}
 
-        function resetSearch() {
-            document.getElementById('searchStep').style.display = 'block';
-            document.getElementById('fundDetailsStep').style.display = 'none';
-            selectedFund = null;
-        }
+function selectFund(amfiCode) {
+    console.log('Selecting fund:', amfiCode);
+    
+    selectedFund = fundDatabase[amfiCode];
+    if (selectedFund) {
+        selectedFund.amfi = amfiCode;
+        document.getElementById('searchStep').style.display = 'none';
+        document.getElementById('fundDetailsStep').style.display = 'block';
+        document.getElementById('selectedFundName').textContent = selectedFund.name;
+        document.getElementById('selectedFundNAV').textContent = '₹' + selectedFund.nav;
+        document.getElementById('investedAmount').value = '';
+        document.getElementById('unitsInput').value = '';
+        
+        console.log('Fund selected:', selectedFund.name);
+        
+        setTimeout(() => {
+            document.getElementById('investedAmount').focus();
+        }, 100);
+    }
+}
+
+function resetSearch() {
+    console.log('Resetting search...');
+    document.getElementById('searchStep').style.display = 'block';
+    document.getElementById('fundDetailsStep').style.display = 'none';
+    document.getElementById('investedAmount').value = '';
+    document.getElementById('unitsInput').value = '';
+    selectedFund = null;
+}
 
         function addToPortfolio() {
             const invested = parseFloat(document.getElementById('investedAmount').value);
@@ -389,26 +461,52 @@
         }
 
         function renderFunds() {
-            const container = document.getElementById('fundsContainer');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (fundsList.length === 0) {
-                container.innerHTML = '';
-                container.appendChild(emptyState);
-                emptyState.style.display = 'block';
-                document.getElementById('fundCount').textContent = '(0)';
-                return;
-            }
-
-            emptyState.style.display = 'none';
-            container.innerHTML = '';
-
-            fundsList.forEach(fund => {
-                container.appendChild(createFundCard(fund));
-            });
-
-            document.getElementById('fundCount').textContent = `(${fundsList.length})`;
+    console.log('Rendering funds...');
+    
+    const container = document.getElementById('fundsContainer');
+    const emptyState = document.getElementById('emptyState');
+    const fundCountEl = document.getElementById('fundCount');
+    
+    if (!container) {
+        console.error('fundsContainer not found!');
+        return;
+    }
+    
+    if (fundsList.length === 0) {
+        container.innerHTML = '';
+        if (emptyState) {
+            emptyState.style.display = 'block';
+            container.appendChild(emptyState);
+        } else {
+            container.innerHTML = `
+                <div id="emptyState" style="text-align: center; padding: 60px 20px; color: #a0a5b1;">
+                    <i class="fa-solid fa-folder-open" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
+                    <p>No funds added yet</p>
+                    <p style="font-size: 13px; margin-top: 8px; opacity: 0.7;">Click "Add Fund" to get started</p>
+                </div>
+            `;
         }
+        if (fundCountEl) fundCountEl.textContent = '(0)';
+        console.log('No funds, showing empty state');
+        return;
+    }
+
+    if (emptyState) {
+        emptyState.style.display = 'none';
+    }
+    
+    container.innerHTML = '';
+
+    fundsList.forEach(fund => {
+        container.appendChild(createFundCard(fund));
+    });
+
+    if (fundCountEl) {
+        fundCountEl.textContent = `(${fundsList.length})`;
+    }
+    
+    console.log('Funds rendered:', fundsList.length);
+}
 
         function createFundCard(fund) {
             const div = document.createElement('div');
@@ -467,29 +565,48 @@
         }
 
         function updateSummary() {
-            let totalInvested = 0;
-            let totalCurrentValue = 0;
+    console.log('Updating summary...');
+    
+    let totalInvested = 0;
+    let totalCurrentValue = 0;
 
-            fundsList.forEach(fund => {
-                totalInvested += fund.invested;
-                totalCurrentValue += fund.currentValue;
-            });
+    fundsList.forEach(fund => {
+        totalInvested += fund.invested;
+        totalCurrentValue += fund.currentValue;
+    });
 
-            const totalPnL = totalCurrentValue - totalInvested;
-            const totalPnLPercent = totalInvested > 0 ? ((totalPnL / totalInvested) * 100).toFixed(2) : 0;
+    const totalPnL = totalCurrentValue - totalInvested;
+    const totalPnLPercent = totalInvested > 0 ? ((totalPnL / totalInvested) * 100).toFixed(2) : 0;
 
-            document.getElementById('totalInvested').textContent = '₹' + totalInvested.toLocaleString('en-IN', {minimumFractionDigits: 2});
-            document.getElementById('totalCurrentValue').textContent = '₹' + totalCurrentValue.toLocaleString('en-IN', {minimumFractionDigits: 2});
-            
-            const pnlEl = document.getElementById('totalPnL');
-            const pnlPercentEl = document.getElementById('totalPnLPercent');
-            
-            pnlEl.textContent = (totalPnL >= 0 ? '+' : '') + '₹' + Math.abs(totalPnL).toLocaleString('en-IN', {minimumFractionDigits: 2});
-            pnlPercentEl.textContent = (parseFloat(totalPnLPercent) >= 0 ? '+' : '') + totalPnLPercent + '%';
-            
-            pnlEl.parentElement.className = 'card mf-card pnl ' + (totalPnL >= 0 ? 'profit' : 'loss');
-            pnlPercentEl.className = 'mf-card-percent ' + (parseFloat(totalPnLPercent) >= 0 ? 'up' : 'down');
-        }
+    const totalInvestedEl = document.getElementById('totalInvested');
+    const totalCurrentValueEl = document.getElementById('totalCurrentValue');
+    const totalPnLEl = document.getElementById('totalPnL');
+    const totalPnLPercentEl = document.getElementById('totalPnLPercent');
+    const totalPnLCard = document.getElementById('totalPnLCard');
+
+    if (totalInvestedEl) {
+        totalInvestedEl.textContent = '₹' + totalInvested.toLocaleString('en-IN', {minimumFractionDigits: 2});
+    }
+    
+    if (totalCurrentValueEl) {
+        totalCurrentValueEl.textContent = '₹' + totalCurrentValue.toLocaleString('en-IN', {minimumFractionDigits: 2});
+    }
+    
+    if (totalPnLEl) {
+        totalPnLEl.textContent = (totalPnL >= 0 ? '+' : '') + '₹' + Math.abs(totalPnL).toLocaleString('en-IN', {minimumFractionDigits: 2});
+    }
+    
+    if (totalPnLPercentEl) {
+        totalPnLPercentEl.textContent = (parseFloat(totalPnLPercent) >= 0 ? '+' : '') + totalPnLPercent + '%';
+        totalPnLPercentEl.className = 'mf-card-percent ' + (parseFloat(totalPnLPercent) >= 0 ? 'up' : 'down');
+    }
+    
+    if (totalPnLCard) {
+        totalPnLCard.className = 'card mf-card pnl ' + (totalPnL >= 0 ? 'profit' : 'loss');
+    }
+    
+    console.log('Summary updated');
+}
 
         window.onclick = function(event) {
             if (event.target === document.getElementById('addFundModal')) closeAddFundModal();

@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>NPS Portfolio</title>
     
     <!-- CSS LINKS -->
-    <link rel="stylesheet" href="style.css">      <!-- ✅ Common Styles -->
-    <link rel="stylesheet" href="nps.css">        <!-- ✅ NPS Page Specific -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nps.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,31 +22,35 @@
         <header class="top-header nps-header">
             <div class="header-content">
                 <div class="nps-title-section">
-                    <div class="nps-icon"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="nps-icon">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
                     <div class="nps-title">
                         <h1>National Pension System</h1>
                         <p>NPS Portfolio</p>
-                        <span class="nps-meta">Added 25/3/2026 · 3 schemes</span>
+                        <span class="nps-meta" id="npsMetaText">No account added</span>
                     </div>
                 </div>
-                <button class="explore-btn"><span>Explore & Invest</span></button>
+                <button class="explore-btn" onclick="openNPSModal()">
+                    <span>Explore & Invest</span>
+                </button>
             </div>
         </header>
 
         <!-- SUMMARY CARDS -->
         <div class="nps-summary-cards">
-            <div class="card nps-card invested">
+            <div class="card nps-card invested" onclick="openEditInvestedModal()">
                 <div class="nps-card-label"><i class="fa-solid fa-wallet"></i> Invested</div>
-                <div class="nps-card-value">₹36,900.00</div>
+                <div class="nps-card-value" id="totalInvested">₹0.00</div>
             </div>
             <div class="card nps-card current">
                 <div class="nps-card-label"><i class="fa-solid fa-chart-line"></i> Current Value</div>
-                <div class="nps-card-value">₹43,079.48</div>
+                <div class="nps-card-value" id="totalCurrentValue">₹0.00</div>
             </div>
             <div class="card nps-card pnl">
                 <div class="nps-card-label"><i class="fa-solid fa-arrow-trend-up"></i> P&L</div>
-                <div class="nps-card-value">+₹6,179.48</div>
-                <div class="nps-card-percent up">+20.13%</div>
+                <div class="nps-card-value" id="totalPnL">₹0.00</div>
+                <div class="nps-card-percent" id="totalPnLPercent">+0.00%</div>
             </div>
         </div>
 
@@ -55,92 +60,713 @@
             
             <!-- Schemes Section -->
             <section class="nps-schemes-section">
-                
-                <!-- Scheme Card 1 -->
-                <div class="scheme-card">
-                    <div class="scheme-header">
-                        <div class="scheme-title">
-                            <h3>Scheme E (Equity)</h3>
-                            <p class="scheme-code">Code: SM001003 · NAV: ₹51.837</p>
-                            <p class="scheme-percentage">44.36%</p>
-                        </div>
-                        <div class="scheme-value">
-                            <h3>₹15,449.06</h3>
-                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +13.44%</p>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                    <div class="scheme-footer">
-                        <span class="scheme-units">Units: 298.0332</span>
-                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
-                    </div>
+                <div id="npsEmptyState" style="text-align: center; padding: 60px 20px; color: #a0a5b1;">
+                    <i class="fa-solid fa-folder-open" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
+                    <p>No NPS account added yet</p>
+                    <p style="font-size: 13px; margin-top: 8px; opacity: 0.7;">Click "Explore & Invest" to add</p>
                 </div>
 
-                <!-- Scheme Card 2 -->
-                <div class="scheme-card">
-                    <div class="scheme-indicator equity"></div>
-                    <div class="scheme-header">
-                        <div class="scheme-title">
-                            <h3>Scheme E (Equity)</h3>
-                            <p class="scheme-code">Code: SM001003 · NAV: ₹45.206</p>
-                            <p class="scheme-percentage">207.07%</p>
-                        </div>
-                        <div class="scheme-value">
-                            <h3>₹15,449.06</h3>
-                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +13.44%</p>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                    <div class="scheme-footer">
-                        <span class="scheme-units">Units: 231.0101</span>
-                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
-                    </div>
+                <div id="npsSchemesContainer" style="display: none;">
+                    <!-- Scheme cards will be loaded here -->
                 </div>
-
-                <!-- Scheme Card 3 -->
-                <div class="scheme-card">
-                    <div class="scheme-indicator govt"></div>
-                    <div class="scheme-header">
-                        <div class="scheme-title">
-                            <h3>Scheme C (Govt Securities)</h3>
-                            <p class="scheme-code">Code: SM001005 · NAV: ₹40.800</p>
-                            <p class="scheme-percentage">27.07%</p>
-                        </div>
-                        <div class="scheme-value">
-                            <h3>₹10,443.16</h3>
-                            <p class="scheme-returns up"><i class="fa-solid fa-arrow-trend-up"></i> +25.66%</p>
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                        </div>
-                    </div>
-                    <div class="scheme-footer">
-                        <span class="scheme-units">Units: 231.0101</span>
-                        <button class="nav-refresh-btn"><i class="fa-solid fa-rotate"></i> NAV refresh</button>
-                    </div>
-                </div>
-
             </section>
         </div>
 
         <!-- BOTTOM NAV -->
         <nav class="bottom-nav">
-            <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
-            <div class="nav-item" onclick="window.location.href='mutual-funds.html'"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
-            <div class="nav-item active"><i class="fa-solid fa-shield-halved"></i><span>NPS</span></div>
-            <div class="nav-item"><i class="fa-solid fa-d"></i><span>FD</span></div>
-            <div class="nav-item"><i class="fa-solid fa-star"></i><span>Watchlist</span></div>
+            <div class="nav-item" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='mutual-funds.html'">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Mutual Funds</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>NPS</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-d"></i>
+                <span>FD</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Watchlist</span>
+            </div>
         </nav>
+
+        <!-- ADD NPS MODAL (4 Steps) -->
+        <div id="addNPSModal" class="modal" style="display: none;">
+            <div class="modal-content" style="max-height: 95vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <div>
+                        <h2>Add NPS Account</h2>
+                        <p id="modalStepText">Step 1 of 4 — Amount</p>
+                    </div>
+                    <button class="modal-close" onclick="closeNPSModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+                </div>
+
+                <!-- Step 1: Total Invested Amount -->
+                <div id="step1" class="modal-step">
+                    <div class="info-box">
+                        <h3>NPS Portfolio Tracker</h3>
+                        <p>Enter your total NPS corpus (invested amount). Data for Scheme E, C, and G will be entered separately.</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Total Invested Amount (₹)</label>
+                        <input type="number" id="totalInvestedInput" placeholder="e.g. 100000" class="amount-input" oninput="calculateAllocations()">
+                        <p class="helper-text">Total invested amount in your NPS account</p>
+                    </div>
+
+                    <button class="next-btn" onclick="goToStep(2)">
+                        <span>Next</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Scheme Code and NAV -->
+                <div id="step2" class="modal-step" style="display: none;">
+                    <div class="info-box">
+                        <h3>Scheme Code and Current NAV</h3>
+                        <p>Entering the code will attempt an auto-fetch. If it fails, enter the NAV manually.</p>
+                    </div>
+
+                    <!-- Scheme E -->
+                    <div class="scheme-input-group">
+                        <div class="scheme-header">
+                            <div class="scheme-dot" style="background: #6366f1"></div>
+                            <h4>Scheme E (Equity)</h4>
+                        </div>
+                        <div class="scheme-fields">
+                            <div class="field">
+                                <label>Scheme Code</label>
+                                <input type="text" id="schemeECode" placeholder="SM001003" value="SM001003">
+                            </div>
+                            <div class="field">
+                                <label>Current NAV</label>
+                                <input type="number" id="schemeENAV" placeholder="e.g. 53.456" step="0.001">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheme C -->
+                    <div class="scheme-input-group">
+                        <div class="scheme-header">
+                            <div class="scheme-dot" style="background: #f59e0b"></div>
+                            <h4>Scheme C (Corporate Bond)</h4>
+                        </div>
+                        <div class="scheme-fields">
+                            <div class="field">
+                                <label>Scheme Code</label>
+                                <input type="text" id="schemeCCode" placeholder="SM001004" value="SM001004">
+                            </div>
+                            <div class="field">
+                                <label>Current NAV</label>
+                                <input type="number" id="schemeCNAV" placeholder="e.g. 53.456" step="0.001">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheme G -->
+                    <div class="scheme-input-group">
+                        <div class="scheme-header">
+                            <div class="scheme-dot" style="background: #10b981"></div>
+                            <h4>Scheme G (Govt Securities)</h4>
+                        </div>
+                        <div class="scheme-fields">
+                            <div class="field">
+                                <label>Scheme Code</label>
+                                <input type="text" id="schemeGCode" placeholder="SM001005" value="SM001005">
+                            </div>
+                            <div class="field">
+                                <label>Current NAV</label>
+                                <input type="number" id="schemeGNAV" placeholder="e.g. 53.456" step="0.001">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button class="back-btn" onclick="goToStep(1)">Back</button>
+                        <button class="next-btn" onclick="goToStep(3)">
+                            <span>Next</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Allocation % -->
+                <div id="step3" class="modal-step" style="display: none;">
+                    <div class="info-box">
+                        <h3>Allocation % (check your NPS account to fill in)</h3>
+                        <p>The total of all three schemes must equal 100%.</p>
+                    </div>
+
+                    <!-- Scheme E Allocation -->
+                    <div class="allocation-group">
+                        <div class="allocation-header">
+                            <div class="scheme-dot" style="background: #6366f1"></div>
+                            <h4>Scheme E (Equity)</h4>
+                            <div class="allocated-amount" id="allocEAmount">₹0</div>
+                        </div>
+                        <div class="allocation-input">
+                            <input type="number" id="allocEPercent" placeholder="e.g. 44.36" step="0.01" oninput="validateAllocations()">
+                            <span class="percent-sign">%</span>
+                        </div>
+                    </div>
+
+                    <!-- Scheme C Allocation -->
+                    <div class="allocation-group">
+                        <div class="allocation-header">
+                            <div class="scheme-dot" style="background: #f59e0b"></div>
+                            <h4>Scheme C (Corporate Bond)</h4>
+                            <div class="allocated-amount" id="allocCAmount">₹0</div>
+                        </div>
+                        <div class="allocation-input">
+                            <input type="number" id="allocCPercent" placeholder="e.g. 27.07" step="0.01" oninput="validateAllocations()">
+                            <span class="percent-sign">%</span>
+                        </div>
+                    </div>
+
+                    <!-- Scheme G Allocation -->
+                    <div class="allocation-group">
+                        <div class="allocation-header">
+                            <div class="scheme-dot" style="background: #10b981"></div>
+                            <h4>Scheme G (Govt Securities)</h4>
+                            <div class="allocated-amount" id="allocGAmount">₹0</div>
+                        </div>
+                        <div class="allocation-input">
+                            <input type="number" id="allocGPercent" placeholder="e.g. 28.57" step="0.01" oninput="validateAllocations()">
+                            <span class="percent-sign">%</span>
+                        </div>
+                    </div>
+
+                    <div class="allocation-total" id="allocTotal">
+                        Total: 0.00% (100.00% remaining)
+                    </div>
+
+                    <div class="step-buttons">
+                        <button class="back-btn" onclick="goToStep(2)">Back</button>
+                        <button class="next-btn" id="step3NextBtn" onclick="goToStep(4)" disabled>
+                            <span>Next</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Units -->
+                <div id="step4" class="modal-step" style="display: none;">
+                    <div class="info-box">
+                        <h3>Units (check your NPS account for scheme-wise data)</h3>
+                    </div>
+
+                    <!-- Scheme E Units -->
+                    <div class="units-group">
+                        <div class="units-header">
+                            <div class="scheme-dot" style="background: #6366f1"></div>
+                            <h4>Scheme E (Equity)</h4>
+                            <span class="nav-display">NAV ₹<span id="finalENAV">0</span></span>
+                        </div>
+                        <input type="number" id="unitsE" placeholder="e.g. 1234.5678" step="0.0001">
+                    </div>
+
+                    <!-- Scheme C Units -->
+                    <div class="units-group">
+                        <div class="units-header">
+                            <div class="scheme-dot" style="background: #f59e0b"></div>
+                            <h4>Scheme C (Corporate Bond)</h4>
+                            <span class="nav-display">NAV ₹<span id="finalCNAV">0</span></span>
+                        </div>
+                        <input type="number" id="unitsC" placeholder="e.g. 1234.5678" step="0.0001">
+                    </div>
+
+                    <!-- Scheme G Units -->
+                    <div class="units-group">
+                        <div class="units-header">
+                            <div class="scheme-dot" style="background: #10b981"></div>
+                            <h4>Scheme G (Govt Securities)</h4>
+                            <span class="nav-display">NAV ₹<span id="finalGNAV">0</span></span>
+                        </div>
+                        <input type="number" id="unitsG" placeholder="e.g. 1234.5678" step="0.0001">
+                    </div>
+
+                    <div class="step-buttons">
+                        <button class="back-btn" onclick="goToStep(3)">Back</button>
+                        <button class="save-btn" onclick="saveNPSAccount()">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Save NPS</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDIT INVESTED MODAL -->
+        <div id="editInvestedModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Edit Total Invested</h2>
+                        <p>Update your NPS invested amount</p>
+                    </div>
+                    <button class="modal-close" onclick="closeEditInvestedModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="input-group">
+                    <label>Total Invested Amount (₹)</label>
+                    <input type="number" id="editTotalInvested" class="amount-input">
+                </div>
+
+                <button class="save-btn" onclick="saveEditedInvested()">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- EDIT UNITS MODAL -->
+        <div id="editUnitsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Edit Units</h2>
+                        <p id="editUnitsSchemeName">Scheme Name</p>
+                    </div>
+                    <button class="modal-close" onclick="closeEditUnitsModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="input-group">
+                    <label>Units</label>
+                    <input type="number" id="editUnitsValue" class="amount-input" step="0.0001">
+                </div>
+
+                <button class="save-btn" onclick="saveEditedUnits()">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.querySelectorAll('.nav-refresh-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const originalHTML = this.innerHTML;
-                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...';
-                setTimeout(() => {
-                    this.innerHTML = originalHTML;
-                }, 2000);
+        let currentStep = 1;
+        let npsData = null;
+        let editingSchemeCode = null;
+
+        window.onload = function() {
+            loadNPSData();
+        };
+
+        function openNPSModal() {
+            document.getElementById('addNPSModal').style.display = 'flex';
+            goToStep(1);
+            resetForm();
+        }
+
+        function closeNPSModal() {
+            document.getElementById('addNPSModal').style.display = 'none';
+        }
+
+        function openEditInvestedModal() {
+            if (!npsData) {
+                alert('No NPS account found. Please add an account first.');
+                return;
+            }
+            document.getElementById('editTotalInvested').value = npsData.totalInvested;
+            document.getElementById('editInvestedModal').style.display = 'flex';
+        }
+
+        function closeEditInvestedModal() {
+            document.getElementById('editInvestedModal').style.display = 'none';
+        }
+
+        function openEditUnitsModal(schemeCode) {
+            if (!npsData) {
+                alert('No NPS account found.');
+                return;
+            }
+            editingSchemeCode = schemeCode;
+            const scheme = npsData.schemes.find(s => s.code === schemeCode);
+            if (!scheme) return;
+
+            document.getElementById('editUnitsSchemeName').textContent = scheme.name;
+            document.getElementById('editUnitsValue').value = scheme.units;
+            document.getElementById('editUnitsModal').style.display = 'flex';
+        }
+
+        function closeEditUnitsModal() {
+            document.getElementById('editUnitsModal').style.display = 'none';
+            editingSchemeCode = null;
+        }
+
+        function goToStep(step) {
+            for (let i = 1; i <= 4; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (stepEl) stepEl.style.display = 'none';
+            }
+
+            const currentStepEl = document.getElementById(`step${step}`);
+            if (currentStepEl) currentStepEl.style.display = 'block';
+            currentStep = step;
+
+            const progress = (step / 4) * 100;
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) progressFill.style.width = progress + '%';
+
+            const stepTexts = ['', 'Amount', 'Scheme NAV', 'Allocation %', 'Units'];
+            const modalStepText = document.getElementById('modalStepText');
+            if (modalStepText) modalStepText.textContent = `Step ${step} of 4 — ${stepTexts[step]}`;
+
+            if (step === 3 || step === 4) calculateAllocations();
+
+            if (step === 4) {
+                const navE = document.getElementById('schemeENAV');
+                const navC = document.getElementById('schemeCNAV');
+                const navG = document.getElementById('schemeGNAV');
+                
+                const finalENAV = document.getElementById('finalENAV');
+                const finalCNAV = document.getElementById('finalCNAV');
+                const finalGNAV = document.getElementById('finalGNAV');
+                
+                if (finalENAV) finalENAV.textContent = navE ? navE.value || '0' : '0';
+                if (finalCNAV) finalCNAV.textContent = navC ? navC.value || '0' : '0';
+                if (finalGNAV) finalGNAV.textContent = navG ? navG.value || '0' : '0';
+            }
+        }
+
+        function resetForm() {
+            const inputs = ['totalInvestedInput', 'schemeENAV', 'schemeCNAV', 'schemeGNAV', 'allocEPercent', 'allocCPercent', 'allocGPercent', 'unitsE', 'unitsC', 'unitsG'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
             });
-        });
+        }
+
+        function calculateAllocations() {
+            const totalInvestedInput = document.getElementById('totalInvestedInput');
+            const totalInvested = totalInvestedInput ? parseFloat(totalInvestedInput.value) || 0 : 0;
+            
+            const allocEInput = document.getElementById('allocEPercent');
+            const allocCInput = document.getElementById('allocCPercent');
+            const allocGInput = document.getElementById('allocGPercent');
+            
+            const allocE = allocEInput ? parseFloat(allocEInput.value) || 0 : 0;
+            const allocC = allocCInput ? parseFloat(allocCInput.value) || 0 : 0;
+            const allocG = allocGInput ? parseFloat(allocGInput.value) || 0 : 0;
+
+            const amountE = (totalInvested * allocE) / 100;
+            const amountC = (totalInvested * allocC) / 100;
+            const amountG = (totalInvested * allocG) / 100;
+
+            const allocEAmount = document.getElementById('allocEAmount');
+            const allocCAmount = document.getElementById('allocCAmount');
+            const allocGAmount = document.getElementById('allocGAmount');
+            
+            if (allocEAmount) allocEAmount.textContent = '₹' + amountE.toLocaleString('en-IN', {maximumFractionDigits: 0});
+            if (allocCAmount) allocCAmount.textContent = '₹' + amountC.toLocaleString('en-IN', {maximumFractionDigits: 0});
+            if (allocGAmount) allocGAmount.textContent = '₹' + amountG.toLocaleString('en-IN', {maximumFractionDigits: 0});
+
+            validateAllocations();
+        }
+
+        function validateAllocations() {
+            const allocEInput = document.getElementById('allocEPercent');
+            const allocCInput = document.getElementById('allocCPercent');
+            const allocGInput = document.getElementById('allocGPercent');
+            
+            const allocE = allocEInput ? parseFloat(allocEInput.value) || 0 : 0;
+            const allocC = allocCInput ? parseFloat(allocCInput.value) || 0 : 0;
+            const allocG = allocGInput ? parseFloat(allocGInput.value) || 0 : 0;
+
+            const total = allocE + allocC + allocG;
+            const remaining = 100 - total;
+
+            const totalEl = document.getElementById('allocTotal');
+            const nextBtn = document.getElementById('step3NextBtn');
+
+            if (totalEl) {
+                if (Math.abs(total - 100) < 0.01) {
+                    totalEl.innerHTML = `Total: ${total.toFixed(2)}% ✓ <span style="color: #10b981">Perfect!</span>`;
+                    totalEl.style.color = '#10b981';
+                } else {
+                    totalEl.innerHTML = `Total: ${total.toFixed(2)}% (${remaining.toFixed(2)}% remaining)`;
+                    totalEl.style.color = remaining !== 0 ? '#ef4444' : '#a0a5b1';
+                }
+            }
+
+            if (nextBtn) nextBtn.disabled = !(Math.abs(total - 100) < 0.01);
+        }
+
+        function saveNPSAccount() {
+            const totalInvestedInput = document.getElementById('totalInvestedInput');
+            const schemeENAV = document.getElementById('schemeENAV');
+            const schemeCNAV = document.getElementById('schemeCNAV');
+            const schemeGNAV = document.getElementById('schemeGNAV');
+            const unitsE = document.getElementById('unitsE');
+            const unitsC = document.getElementById('unitsC');
+            const unitsG = document.getElementById('unitsG');
+            const allocEPercent = document.getElementById('allocEPercent');
+            const allocCPercent = document.getElementById('allocCPercent');
+            const allocGPercent = document.getElementById('allocGPercent');
+            
+            const totalInvested = totalInvestedInput ? parseFloat(totalInvestedInput.value) : 0;
+            const navE = schemeENAV ? parseFloat(schemeENAV.value) : 0;
+            const navC = schemeCNAV ? parseFloat(schemeCNAV.value) : 0;
+            const navG = schemeGNAV ? parseFloat(schemeGNAV.value) : 0;
+            const unitsEVal = unitsE ? parseFloat(unitsE.value) : 0;
+            const unitsCVal = unitsC ? parseFloat(unitsC.value) : 0;
+            const unitsGVal = unitsG ? parseFloat(unitsG.value) : 0;
+            const allocE = allocEPercent ? parseFloat(allocEPercent.value) : 0;
+            const allocC = allocCPercent ? parseFloat(allocCPercent.value) : 0;
+            const allocG = allocGPercent ? parseFloat(allocGPercent.value) : 0;
+
+            if (!totalInvested || !navE || !navC || !navG) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const currentE = unitsEVal * navE;
+            const currentC = unitsCVal * navC;
+            const currentG = unitsGVal * navG;
+            const totalCurrent = currentE + currentC + currentG;
+            const totalPnL = totalCurrent - totalInvested;
+            const totalPnLPercent = totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
+
+            const schemeECode = document.getElementById('schemeECode');
+            const schemeCCode = document.getElementById('schemeCCode');
+            const schemeGCode = document.getElementById('schemeGCode');
+
+            npsData = {
+                totalInvested: totalInvested,
+                totalCurrentValue: totalCurrent,
+                totalPnL: totalPnL,
+                totalPnLPercent: totalPnLPercent,
+                schemes: [
+                    {
+                        code: schemeECode ? schemeECode.value : 'SM001003',
+                        name: 'Scheme E (Equity)',
+                        nav: navE,
+                        units: unitsEVal,
+                        currentValue: currentE,
+                        allocation: allocE,
+                        investedAmount: (totalInvested * allocE) / 100
+                    },
+                    {
+                        code: schemeCCode ? schemeCCode.value : 'SM001004',
+                        name: 'Scheme C (Corporate Bond)',
+                        nav: navC,
+                        units: unitsCVal,
+                        currentValue: currentC,
+                        allocation: allocC,
+                        investedAmount: (totalInvested * allocC) / 100
+                    },
+                    {
+                        code: schemeGCode ? schemeGCode.value : 'SM001005',
+                        name: 'Scheme G (Govt Securities)',
+                        nav: navG,
+                        units: unitsGVal,
+                        currentValue: currentG,
+                        allocation: allocG,
+                        investedAmount: (totalInvested * allocG) / 100
+                    }
+                ],
+                lastUpdated: new Date().toISOString()
+            };
+
+            localStorage.setItem('npsData', JSON.stringify(npsData));
+            loadNPSData();
+            closeNPSModal();
+            alert('NPS account saved successfully!');
+        }
+
+        function saveEditedInvested() {
+            const editTotalInvested = document.getElementById('editTotalInvested');
+            const newInvested = editTotalInvested ? parseFloat(editTotalInvested.value) : 0;
+            
+            if (!newInvested || newInvested <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            if (!npsData) return;
+
+            npsData.totalInvested = newInvested;
+            const totalPnL = npsData.totalCurrentValue - newInvested;
+            npsData.totalPnL = totalPnL;
+            npsData.totalPnLPercent = newInvested > 0 ? (totalPnL / newInvested) * 100 : 0;
+
+            localStorage.setItem('npsData', JSON.stringify(npsData));
+            loadNPSData();
+            closeEditInvestedModal();
+            alert('Invested amount updated!');
+        }
+
+        function saveEditedUnits() {
+            const editUnitsValue = document.getElementById('editUnitsValue');
+            const newUnits = editUnitsValue ? parseFloat(editUnitsValue.value) : 0;
+            
+            if (!newUnits || newUnits <= 0) {
+                alert('Please enter valid units');
+                return;
+            }
+
+            if (!npsData || !editingSchemeCode) return;
+
+            const scheme = npsData.schemes.find(s => s.code === editingSchemeCode);
+            if (!scheme) return;
+
+            scheme.units = newUnits;
+            scheme.currentValue = newUnits * scheme.nav;
+
+            npsData.totalCurrentValue = npsData.schemes.reduce((sum, s) => sum + s.currentValue, 0);
+            npsData.totalPnL = npsData.totalCurrentValue - npsData.totalInvested;
+            npsData.totalPnLPercent = npsData.totalInvested > 0 ? (npsData.totalPnL / npsData.totalInvested) * 100 : 0;
+
+            localStorage.setItem('npsData', JSON.stringify(npsData));
+            loadNPSData();
+            closeEditUnitsModal();
+            alert('Units updated!');
+        }
+
+        function loadNPSData() {
+            const stored = localStorage.getItem('npsData');
+            const emptyState = document.getElementById('npsEmptyState');
+            const schemesContainer = document.getElementById('npsSchemesContainer');
+            const metaText = document.getElementById('npsMetaText');
+
+            if (stored) {
+                try {
+                    npsData = JSON.parse(stored);
+                    
+                    if (emptyState) emptyState.style.display = 'none';
+                    if (schemesContainer) schemesContainer.style.display = 'block';
+                    
+                    if (metaText && npsData.schemes) {
+                        const dateStr = npsData.lastUpdated ? new Date(npsData.lastUpdated).toLocaleDateString() : 'Unknown';
+                        metaText.textContent = `Added ${dateStr} · ${npsData.schemes.length} schemes`;
+                    }
+
+                    const totalInvestedEl = document.getElementById('totalInvested');
+                    const totalCurrentValueEl = document.getElementById('totalCurrentValue');
+                    const totalPnLEl = document.getElementById('totalPnL');
+                    const totalPnLPercentEl = document.getElementById('totalPnLPercent');
+
+                    if (totalInvestedEl) totalInvestedEl.textContent = '₹' + (npsData.totalInvested || 0).toLocaleString('en-IN', {minimumFractionDigits: 2});
+                    if (totalCurrentValueEl) totalCurrentValueEl.textContent = '₹' + (npsData.totalCurrentValue || 0).toLocaleString('en-IN', {minimumFractionDigits: 2});
+                    if (totalPnLEl) {
+                        const pnl = npsData.totalPnL || 0;
+                        totalPnLEl.textContent = (pnl >= 0 ? '+' : '') + '₹' + Math.abs(pnl).toLocaleString('en-IN', {minimumFractionDigits: 2});
+                    }
+                    if (totalPnLPercentEl) {
+                        const pnlPercent = npsData.totalPnLPercent || 0;
+                        totalPnLPercentEl.textContent = '+' + pnlPercent.toFixed(2) + '%';
+                        totalPnLPercentEl.className = 'nps-card-percent ' + (pnlPercent >= 0 ? 'up' : 'down');
+                    }
+
+                    renderSchemeCards();
+                } catch (error) {
+                    console.error('Error loading NPS data:', error);
+                    npsData = null;
+                    showEmptyState(emptyState, schemesContainer, metaText);
+                }
+            } else {
+                npsData = null;
+                showEmptyState(emptyState, schemesContainer, metaText);
+            }
+        }
+
+        function showEmptyState(emptyState, schemesContainer, metaText) {
+            if (emptyState) emptyState.style.display = 'block';
+            if (schemesContainer) schemesContainer.style.display = 'none';
+            if (metaText) metaText.textContent = 'No account added';
+            
+            const totalInvestedEl = document.getElementById('totalInvested');
+            const totalCurrentValueEl = document.getElementById('totalCurrentValue');
+            const totalPnLEl = document.getElementById('totalPnL');
+            const totalPnLPercentEl = document.getElementById('totalPnLPercent');
+            
+            if (totalInvestedEl) totalInvestedEl.textContent = '₹0.00';
+            if (totalCurrentValueEl) totalCurrentValueEl.textContent = '₹0.00';
+            if (totalPnLEl) totalPnLEl.textContent = '₹0.00';
+            if (totalPnLPercentEl) totalPnLPercentEl.textContent = '+0.00%';
+        }
+
+        function renderSchemeCards() {
+            const container = document.getElementById('npsSchemesContainer');
+            if (!container || !npsData || !npsData.schemes) return;
+
+            container.innerHTML = '';
+
+            npsData.schemes.forEach(scheme => {
+                const card = document.createElement('div');
+                card.className = 'scheme-card';
+                
+                let indicatorClass = 'govt';
+                if (scheme.code && scheme.code.includes('SM001003')) {
+                    indicatorClass = 'equity';
+                } else if (scheme.code && scheme.code.includes('SM001004')) {
+                    indicatorClass = 'corporate';
+                }
+                
+                const investedAmount = scheme.investedAmount || 0;
+                const pnl = scheme.currentValue - investedAmount;
+                const pnlPercent = investedAmount > 0 ? (pnl / investedAmount) * 100 : 0;
+                
+                card.innerHTML = `
+                    <div class="scheme-indicator ${indicatorClass}"></div>
+                    <div class="scheme-header">
+                        <div class="scheme-title">
+                            <h3>${scheme.name || 'Unknown Scheme'}</h3>
+                            <p class="scheme-code">Code: ${scheme.code || 'N/A'} · NAV: ₹${scheme.nav || 0}</p>
+                            <p class="scheme-percentage">${(scheme.allocation || 0).toFixed(2)}%</p>
+                        </div>
+                        <div class="scheme-value">
+                            <h3>₹${(scheme.currentValue || 0).toLocaleString('en-IN', {minimumFractionDigits: 2})}</h3>
+                            <p class="scheme-returns ${pnl >= 0 ? 'up' : 'down'}">
+                                <i class="fa-solid fa-arrow-trend-${pnl >= 0 ? 'up' : 'down'}"></i> 
+                                +${pnlPercent.toFixed(2)}%
+                            </p>
+                            <button class="edit-btn" onclick="openEditUnitsModal('${scheme.code}')" title="Edit Units">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="scheme-footer">
+                        <span class="scheme-units">Units: ${scheme.units || 0}</span>
+                        <button class="nav-refresh-btn" onclick="refreshNAV(this)">
+                            <i class="fa-solid fa-rotate"></i> NAV refresh
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function refreshNAV(btn) {
+            const icon = btn.querySelector('i');
+            if (icon) icon.classList.add('fa-spin');
+            setTimeout(() => {
+                if (icon) icon.classList.remove('fa-spin');
+                alert('NAV refreshed!');
+            }, 1500);
+        }
+
+        window.onclick = function(event) {
+            const addNPSModal = document.getElementById('addNPSModal');
+            const editInvestedModal = document.getElementById('editInvestedModal');
+            const editUnitsModal = document.getElementById('editUnitsModal');
+            
+            if (event.target === addNPSModal) closeNPSModal();
+            if (event.target === editInvestedModal) closeEditInvestedModal();
+            if (event.target === editUnitsModal) closeEditUnitsModal();
+        }
     </script>
 </body>
 </html>

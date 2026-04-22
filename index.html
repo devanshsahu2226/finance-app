@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Finance Dashboard</title>
     
     <!-- CSS LINKS -->
-    <link rel="stylesheet" href="style.css">      <!-- ✅ Common Styles -->
-    <link rel="stylesheet" href="home.css">       <!-- ✅ Home Page Specific -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,8 +62,8 @@
                     <div class="donut-chart" id="donutChart">
                         <div class="donut-inner">
                             <p>Total Value</p>
-                            <h2>₹1.42L</h2>
-                            <p class="change">↗ +4.55%</p>
+                            <h2 id="totalValueDisplay">₹0.00</h2>
+                            <p class="change" id="totalValuePercent">↗ 0.00%</p>
                         </div>
                     </div>
                 </div>
@@ -73,16 +74,16 @@
             <section class="stats-grid">
                 <div class="card stat-card invested">
                     <p class="label">Invested</p>
-                    <p class="amount">₹1,35,932.03</p>
+                    <p class="amount" id="homeTotalInvested">₹0.00</p>
                 </div>
                 <div class="card stat-card current">
                     <p class="label">Current</p>
-                    <p class="amount">₹1,42,111.51</p>
+                    <p class="amount" id="homeTotalCurrent">₹0.00</p>
                 </div>
                 <div class="card stat-card pnl">
                     <p class="label">P&L</p>
-                    <p class="amount">+₹6,179.48</p>
-                    <p class="sub">+4.55%</p>
+                    <p class="amount" id="homeTotalPnL">₹0.00</p>
+                    <p class="sub" id="homeTotalPnLPercent">0.00%</p>
                 </div>
             </section>
 
@@ -94,7 +95,7 @@
                     </div>
                     <div class="quick-info">
                         <h3>Mutual Funds</h3>
-                        <p>2 funds</p>
+                        <p id="homeFundCount">0 funds</p>
                     </div>
                     <div class="quick-arrow">
                         <i class="fa-solid fa-chevron-right"></i>
@@ -153,38 +154,109 @@
     </div>
 
     <script>
-        const fundData = [
-            { name: 'Parag Parikh Flexi Cap', value: 52000, color: '#38ef7d' },
-            { name: 'UTI Nifty 50 Index Fund', value: 53200, color: '#0072ff' },
-            { name: 'NPS', value: 36900, color: '#f7971e' }
-        ];
-        const totalValue = fundData.reduce((sum, fund) => sum + fund.value, 0);
-        
-        function generateDonutGradient() {
+        // Load data from localStorage on page load
+        window.onload = function() {
+            loadHomeData();
+        };
+
+        // Listen for storage changes (when MF page updates)
+        window.addEventListener('storage', function() {
+            loadHomeData();
+        });
+
+        // Load and display home data from localStorage
+        function loadHomeData() {
+            const storedFunds = localStorage.getItem('mutualFunds');
+            
+            if (storedFunds) {
+                const fundsList = JSON.parse(storedFunds);
+                updateHomeDisplay(fundsList);
+            } else {
+                // No funds yet
+                updateHomeDisplay([]);
+            }
+        }
+
+        // Update home page display
+        function updateHomeDisplay(fundsList) {
+            let totalInvested = 0;
+            let totalCurrentValue = 0;
+
+            fundsList.forEach(fund => {
+                totalInvested += fund.invested;
+                totalCurrentValue += fund.currentValue;
+            });
+
+            const totalPnL = totalCurrentValue - totalInvested;
+            const totalPnLPercent = totalInvested > 0 ? ((totalPnL / totalInvested) * 100).toFixed(2) : 0;
+            const totalValue = totalCurrentValue;
+
+            // Update Stats Cards
+            document.getElementById('homeTotalInvested').textContent = '₹' + totalInvested.toLocaleString('en-IN', {minimumFractionDigits: 2});
+            document.getElementById('homeTotalCurrent').textContent = '₹' + totalCurrentValue.toLocaleString('en-IN', {minimumFractionDigits: 2});
+            
+            const pnlEl = document.getElementById('homeTotalPnL');
+            const pnlPercentEl = document.getElementById('homeTotalPnLPercent');
+            
+            pnlEl.textContent = (totalPnL >= 0 ? '+' : '') + '₹' + Math.abs(totalPnL).toLocaleString('en-IN', {minimumFractionDigits: 2});
+            pnlPercentEl.textContent = (parseFloat(totalPnLPercent) >= 0 ? '+' : '') + totalPnLPercent + '%';
+            
+            // Update Total Value Display
+            document.getElementById('totalValueDisplay').textContent = '₹' + totalValue.toLocaleString('en-IN', {maximumFractionDigits: 0});
+            document.getElementById('totalValuePercent').textContent = (parseFloat(totalPnLPercent) >= 0 ? '↗ ' : '↘ ') + Math.abs(totalPnLPercent) + '%';
+
+            // Update Fund Count
+            document.getElementById('homeFundCount').textContent = fundsList.length + ' fund' + (fundsList.length !== 1 ? 's' : '');
+
+            // Update Donut Chart
+            updateDonutChart(fundsList);
+        }
+
+        // Update Donut Chart
+        function updateDonutChart(fundsList) {
+            const chartElement = document.getElementById('donutChart');
+            const legendElement = document.getElementById('chartLegend');
+            
+            if (fundsList.length === 0) {
+                chartElement.style.background = 'conic-gradient(#38ef7d 0% 100%)';
+                legendElement.innerHTML = '<p style="color: #a0a5b1; font-size: 13px;">No funds added yet</p>';
+                return;
+            }
+
+            const totalValue = fundsList.reduce((sum, fund) => sum + fund.currentValue, 0);
+            
+            // Generate colors for each fund
+            const colors = ['#38ef7d', '#0072ff', '#f7971e', '#6366f1', '#ec4899', '#8b5cf6'];
+            
             let gradient = 'conic-gradient(';
+            let legendHTML = '';
             let currentPercent = 0;
-            fundData.forEach((fund, index) => {
-                const percentage = (fund.value / totalValue) * 100;
-                gradient += `${fund.color} ${currentPercent}% ${currentPercent + percentage}%`;
-                if (index < fundData.length - 1) gradient += ', ';
+
+            fundsList.forEach((fund, index) => {
+                const percentage = (fund.currentValue / totalValue) * 100;
+                const color = colors[index % colors.length];
+                
+                gradient += `${color} ${currentPercent}% ${currentPercent + percentage}%`;
+                
+                legendHTML += `
+                    <div class="legend-item">
+                        <span class="dot" style="background: ${color}"></span>
+                        <span>${fund.name.substring(0, 30)}${fund.name.length > 30 ? '...' : ''} (${percentage.toFixed(1)}%)</span>
+                    </div>
+                `;
+                
+                if (index < fundsList.length - 1) {
+                    gradient += ', ';
+                }
+                
                 currentPercent += percentage;
             });
+
             gradient += ')';
-            return gradient;
+            
+            chartElement.style.background = gradient;
+            legendElement.innerHTML = legendHTML;
         }
-
-        function generateLegend() {
-            const legendContainer = document.getElementById('chartLegend');
-            let legendHTML = '';
-            fundData.forEach(fund => {
-                const percentage = ((fund.value / totalValue) * 100).toFixed(1);
-                legendHTML += `<div class="legend-item"><span class="dot" style="background: ${fund.color}"></span><span>${fund.name} (${percentage}%)</span></div>`;
-            });
-            legendContainer.innerHTML = legendHTML;
-        }
-
-        document.getElementById('donutChart').style.background = generateDonutGradient();
-        generateLegend();
 
         function handleLogout() {
             if(confirm("Are you sure you want to logout?")) {
@@ -199,6 +271,9 @@
                 refreshBtn.classList.remove('fa-spin');
             }, 1000);
         }
+
+        // Auto-refresh home data every 30 seconds
+        setInterval(loadHomeData, 30000);
     </script>
 </body>
 </html>
