@@ -6,7 +6,11 @@
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Finance Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="style.css">      <!-- ✅ Common Styles -->
+    <link rel="stylesheet" href="home.css">       <!-- ✅ Home Page Specific -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -82,7 +86,7 @@
                 </div>
             </section>
 
-            <!-- Quick Access Cards (Above Footer) -->
+            <!-- Quick Access Cards -->
             <section class="quick-access-section">
                 <div class="card quick-access-card" onclick="window.location.href='mutual-funds.html'">
                     <div class="quick-icon mutual-funds-icon">
@@ -125,16 +129,30 @@
 
         <!-- BOTTOM NAVIGATION -->
         <nav class="bottom-nav">
-            <div class="nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></div>
-            <div class="nav-item" onclick="window.location.href='mutual-funds.html'"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
-            <div class="nav-item" onclick="window.location.href='nps.html'"><i class="fa-solid fa-shield-halved"></i><span>NPS</span></div>
-            <div class="nav-item"><i class="fa-solid fa-d"></i><span>FD</span></div>
-            <div class="nav-item"><i class="fa-solid fa-star"></i><span>Watchlist</span></div>
+            <div class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='mutual-funds.html'">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Mutual Funds</span>
+            </div>
+            <div class="nav-item" onclick="window.location.href='nps.html'">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>NPS</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-d"></i>
+                <span>FD</span>
+            </div>
+            <div class="nav-item">
+                <i class="fa-solid fa-star"></i>
+                <span>Watchlist</span>
+            </div>
         </nav>
     </div>
 
     <script>
-        // Fund Data for Dynamic Chart
         const fundData = [
             { name: 'Parag Parikh Flexi Cap', value: 52000, color: '#38ef7d' },
             { name: 'UTI Nifty 50 Index Fund', value: 53200, color: '#0072ff' },

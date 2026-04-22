@@ -6,12 +6,18 @@
     <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Mutual Funds</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="style.css">           <!-- ✅ Common Styles -->
+    <link rel="stylesheet" href="mutual-funds.css">    <!-- ✅ MF Page Specific -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="mobile-frame">
+        
+        <!-- HEADER -->
         <header class="top-header">
             <div class="header-content">
                 <div class="header-left">
@@ -30,6 +36,7 @@
             </div>
         </header>
 
+        <!-- SUMMARY CARDS -->
         <div class="mf-summary-cards">
             <div class="card mf-card invested">
                 <div class="mf-card-label"><i class="fa-solid fa-wallet"></i> Invested</div>
@@ -46,6 +53,7 @@
             </div>
         </div>
 
+        <!-- CONTENT -->
         <div class="content-wrapper">
             <div class="content-spacer"></div>
             
@@ -65,6 +73,7 @@
             </section>
         </div>
 
+        <!-- BOTTOM NAV -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i><span>Mutual Funds</span></div>
@@ -176,7 +185,7 @@
         window.onload = function() {
             loadFunds();
             updateTime();
-            setInterval(updateTime, 1000);
+            setInterval(updateTime, 60000);
         };
 
         function updateTime() {
@@ -341,16 +350,11 @@
             fund.pnlPercent = parseFloat(((fund.pnl / invested) * 100).toFixed(2));
             fund.lastUpdated = new Date().toISOString();
 
-            // Force save and re-render
             saveFunds();
             renderFunds();
             updateSummary();
             closeEditModal();
-            
-            // Force reload to show changes
-            setTimeout(() => {
-                location.reload();
-            }, 100);
+            setTimeout(() => location.reload(), 100);
         }
 
         function deleteFund(fundCode) {
