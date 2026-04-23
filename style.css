@@ -394,4 +394,58 @@ body {
     padding: 20px;
     background: #fef2f2;
     border-radius: 8px;
+}/* ==================== SAFE AREA FIX FOR NOTCH/DYNAMIC ISLAND ==================== */
+
+/* Header - Add safe area padding */
+.top-header {
+    padding-top: calc(15px + env(safe-area-inset-top));
+    padding-left: calc(20px + env(safe-area-inset-left));
+    padding-right: calc(20px + env(safe-area-inset-right));
+}
+
+/* NPS Header - Specific fix */
+.nps-header {
+    padding-top: calc(20px + env(safe-area-inset-top));
+    padding-left: calc(20px + env(safe-area-inset-left));
+    padding-right: calc(20px + env(safe-area-inset-right));
+}
+
+/* Market Indices - Move down */
+.market-indices-fixed {
+    top: calc(75px + env(safe-area-inset-top));
+}
+
+/* MF Summary Cards - Move down */
+.mf-summary-cards {
+    top: calc(75px + env(safe-area-inset-top));
+}
+
+/* NPS Summary Cards - Move down */
+.nps-summary-cards {
+    top: calc(130px + env(safe-area-inset-top));
+}
+
+/* Content Wrapper - Adjust padding */
+.content-wrapper {
+    padding-top: calc(160px + env(safe-area-inset-top));
+}
+
+/* NPS Schemes Section - Adjust margin */
+.nps-schemes-section {
+    margin-top: calc(220px + env(safe-area-inset-top));
+}
+
+/* Bottom Nav - Add safe area padding */
+.bottom-nav {
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+    padding-left: calc(10px + env(safe-area-inset-left));
+    padding-right: calc(10px + env(safe-area-inset-right));
+}
+
+/* Mobile Frame - Account for safe areas */
+.mobile-frame {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
