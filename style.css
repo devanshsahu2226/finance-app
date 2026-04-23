@@ -1,3 +1,70 @@
+/* ==================== PWA SAFE AREA FIX ==================== */
+
+/* iOS PWA Status Bar Height */
+:root {
+    --safe-area-top: env(safe-area-inset-top, 47px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 34px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+}
+
+/* Force PWA to respect safe areas */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .mobile-frame {
+        padding-top: var(--safe-area-top);
+        padding-bottom: var(--safe-area-bottom);
+    }
+}
+
+/* iOS specific fix */
+@supports (-webkit-touch-callout: none) {
+    .top-header {
+        padding-top: calc(16px + var(--safe-area-top));
+    }
+    
+    .market-indices-fixed,
+    .mf-summary-cards,
+    .nps-summary-cards {
+        top: calc(80px + var(--safe-area-top));
+    }
+    
+    .content-wrapper {
+        padding-top: calc(170px + var(--safe-area-top));
+    }
+    
+    .nps-schemes-section {
+        margin-top: calc(240px + var(--safe-area-top));
+    }
+    
+    .bottom-nav {
+        padding-bottom: calc(14px + var(--safe-area-bottom));
+    }
+}
+
+/* Android PWA fix */
+@media screen and (display-mode: standalone) {
+    .top-header {
+        padding-top: calc(16px + var(--safe-area-top));
+    }
+    
+    .market-indices-fixed,
+    .mf-summary-cards,
+    .nps-summary-cards {
+        top: calc(80px + var(--safe-area-top));
+    }
+    
+    .content-wrapper {
+        padding-top: calc(170px + var(--safe-area-top));
+    }
+    
+    .nps-schemes-section {
+        margin-top: calc(240px + var(--safe-area-top));
+    }
+    
+    .bottom-nav {
+        padding-bottom: calc(14px + var(--safe-area-bottom));
+    }
+}
 /* ==================== BASE STYLES ==================== */
 * {
     margin: 0;
@@ -9,6 +76,7 @@ body {
     background: #020408;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #ffffff;
+    -webkit-text-size-adjust: 100%;
 }
 
 .mobile-frame {
@@ -18,13 +86,9 @@ body {
     background: linear-gradient(180deg, #1a233a 0%, #0a0e17 100%);
     position: relative;
     padding-bottom: 80px;
-    padding-top: env(safe-area-inset-top);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
-/* ==================== HEADER - STANDARD MEASUREMENTS ==================== */
+/* ==================== HEADER ==================== */
 .top-header {
     position: fixed;
     top: 0;
@@ -33,121 +97,15 @@ body {
     width: 100%;
     max-width: 390px;
     background: #0a0e17;
-    padding: calc(16px + env(safe-area-inset-top)) 20px 16px;
+    padding: 50px 20px 16px;  /* Fixed: 50px top padding */
     z-index: 1000;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0072ff, #00c6ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.name h1 {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.name p {
-    font-size: 14px;
-    color: #a0a5b1;
-}
-
-.logout-btn {
-    background: rgba(255,75,75,0.1);
-    border: 1px solid rgba(255,75,75,0.4);
-    color: #ff4b4b;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-}
-
-.back-btn, .header-action-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.page-title {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.refresh-nav-btn {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.add-fund-btn {
-    background: linear-gradient(135deg, #10b981, #34d399);
-    border: none;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
 }
 
 /* ==================== NIFTY CARD - HOME PAGE ==================== */
 .market-indices-fixed {
     position: fixed;
-    top: calc(70px + env(safe-area-inset-top));
+    top: 130px;  /* Fixed: 130px from top */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -156,62 +114,84 @@ body {
     z-index: 999;
 }
 
-.nifty-single {
-    background: rgba(56, 239, 125, 0.15);
-    border-radius: 14px;
-    padding: 16px;
-    color: white;
+/* ==================== MF SUMMARY CARDS ==================== */
+.mf-summary-cards {
+    position: fixed;
+    top: 130px;  /* Fixed: 130px from top */
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    border: 1px solid rgba(56, 239, 125, 0.3);
+    max-width: 390px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+    z-index: 999;
 }
 
-.nifty-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* ==================== NPS SUMMARY CARDS ==================== */
+.nps-summary-cards {
+    position: fixed;
+    top: 130px;  /* Fixed: 130px from top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+    z-index: 999;
 }
 
-.nifty-left {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+/* ==================== CONTENT WRAPPER ==================== */
+.content-wrapper {
+    padding-top: 210px;  /* Fixed: 210px from top */
+    padding-bottom: 85px;
 }
 
-.nifty-single .card-header {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+/* ==================== NPS HEADER ==================== */
+.nps-header {
+    background: linear-gradient(135deg, #1a1f3a, #0f141f);
+    padding: 50px 20px 20px;  /* Fixed: 50px top padding */
 }
 
-.nifty-single .value {
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.nifty-single .change {
-    font-size: 13px;
-    background: rgba(255,255,255,0.25);
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    width: fit-content;
-}
-
-.refresh-btn {
-    background: rgba(255,255,255,0.15);
+.explore-btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     border: none;
     color: white;
-    width: 40px;
-    height: 40px;
+    padding: 10px 18px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 16px;
+    position: absolute;
+    top: 50px;  /* Fixed: 50px from top */
+    right: 20px;
+}
+
+/* ==================== NPS SCHEMES ==================== */
+.nps-schemes-section {
+    padding: 0 16px;
+    margin-top: 300px;  /* Fixed: 300px from top */
+    margin-bottom: 20px;
+}
+
+/* ==================== BOTTOM NAV ==================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    background: #0a0e17;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0 14px;  /* Fixed: 20px bottom padding for home indicator */
+    z-index: 1000;
 }
 
 /* ==================== MF SUMMARY CARDS ==================== */

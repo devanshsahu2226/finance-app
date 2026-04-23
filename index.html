@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e17">
+    
+    <!-- iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Finance App">
+    
+    <!-- Android PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Finance App">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <title>Finance Dashboard</title>
     
@@ -298,5 +302,23 @@
             });
         }
     </script>
+  <!-- ✅ PWA Detection Code - YAHAN PASTE KAREIN -->
+    <script>
+        // PWA Detection and Safe Area Fix
+        function isPWA() {
+            return window.matchMedia('(display-mode: standalone)').matches || 
+                   window.navigator.standalone === true;
+        }
+
+        function applyPWAFix() {
+            if (isPWA()) {
+                document.body.classList.add('pwa-mode');
+                console.log('✅ PWA Mode Detected');
+            }
+        }
+
+        // Run on load
+        window.addEventListener('load', applyPWAFix);
+    </script>  
 </body>
 </html>
