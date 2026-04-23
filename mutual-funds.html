@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#0a0e17">
     
-    <!-- iOS PWA -->
+    <!-- iOS PWA - IMPORTANT -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Finance App">
+    <meta name="apple-mobile-web-app-title" content="Finance">
     
     <!-- Android PWA -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -646,22 +646,41 @@ function resetSearch() {
         }
     </script>
     <!-- ✅ PWA Detection Code - YAHAN PASTE KAREIN -->
-    <script>
-        // PWA Detection and Safe Area Fix
+        <script>
+        // PWA Detection
         function isPWA() {
             return window.matchMedia('(display-mode: standalone)').matches || 
                    window.navigator.standalone === true;
         }
 
+        // Apply PWA fixes
         function applyPWAFix() {
             if (isPWA()) {
-                document.body.classList.add('pwa-mode');
-                console.log('✅ PWA Mode Detected');
+                document.body.classList.add('ios-pwa');
+                console.log('✅ PWA Mode Detected - Applying fixes');
+                
+                // Force apply styles
+                const style = document.createElement('style');
+                style.textContent = `
+                    .top-header { padding-top: 50px !important; }
+                    .market-indices-fixed, .mf-summary-cards, .nps-summary-cards { top: 130px !important; }
+                    .content-wrapper { padding-top: 210px !important; }
+                    .nps-schemes-section { margin-top: 300px !important; }
+                    .nps-header { padding-top: 50px !important; }
+                    .explore-btn { top: 50px !important; }
+                    .bottom-nav { padding-bottom: 20px !important; }
+                `;
+                document.head.appendChild(style);
             }
         }
 
         // Run on load
         window.addEventListener('load', applyPWAFix);
+        
+        // Also run after short delay (for iOS)
+        setTimeout(applyPWAFix, 100);
+        setTimeout(applyPWAFix, 500);
     </script>
+
 </body>
 </html>

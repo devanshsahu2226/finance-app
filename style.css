@@ -1,3 +1,93 @@
+/* ==================== PWA FIX - FIXED PIXELS ==================== */
+
+/* Default (Browser) */
+.top-header {
+    padding-top: 16px;
+}
+
+.market-indices-fixed,
+.mf-summary-cards,
+.nps-summary-cards {
+    top: 70px;
+}
+
+.content-wrapper {
+    padding-top: 155px;
+}
+
+.nps-schemes-section {
+    margin-top: 220px;
+}
+
+.nps-header {
+    padding-top: 20px;
+}
+
+.explore-btn {
+    top: 20px;
+}
+
+.bottom-nav {
+    padding-bottom: 14px;
+}
+
+/* PWA Mode - iOS (Add to Home Screen) */
+@media screen and (display-mode: standalone) {
+    .top-header {
+        padding-top: 50px !important;  /* Fixed for iOS status bar */
+    }
+    
+    .market-indices-fixed,
+    .mf-summary-cards,
+    .nps-summary-cards {
+        top: 130px !important;  /* Header (50+16) + Card spacing */
+    }
+    
+    .content-wrapper {
+        padding-top: 210px !important;  /* Cards (130) + Spacing (80) */
+    }
+    
+    .nps-schemes-section {
+        margin-top: 300px !important;  /* Cards (130) + Content spacing */
+    }
+    
+    .nps-header {
+        padding-top: 50px !important;
+    }
+    
+    .explore-btn {
+        top: 50px !important;
+    }
+    
+    .bottom-nav {
+        padding-bottom: 20px !important;  /* Home indicator space */
+    }
+}
+
+/* iOS Safari specific */
+@supports (-webkit-touch-callout: none) {
+    .ios-pwa .top-header {
+        padding-top: 50px !important;
+    }
+    
+    .ios-pwa .market-indices-fixed,
+    .ios-pwa .mf-summary-cards,
+    .ios-pwa .nps-summary-cards {
+        top: 130px !important;
+    }
+    
+    .ios-pwa .content-wrapper {
+        padding-top: 210px !important;
+    }
+    
+    .ios-pwa .nps-schemes-section {
+        margin-top: 300px !important;
+    }
+    
+    .ios-pwa .bottom-nav {
+        padding-bottom: 20px !important;
+    }
+}
 /* ==================== PWA SAFE AREA FIX ==================== */
 
 /* iOS PWA Status Bar Height */
